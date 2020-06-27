@@ -1,0 +1,30 @@
+﻿빌드 시작: 2020-06-27 오전 11:16:55
+     1>2 노드의 "C:\Users\Glen\Desktop\Temporary\Project\C++\New\nml\nml\nml.vcxproj" 프로젝트(Rebuild 대상)입니다.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Z7 /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Release-MT\nml.pch" /Fo"Release-MT\\" /Fd"Release-MT\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Z7 /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Release-MT\nml.pch" /Fo"Release-MT\\" /Fd"Release-MT\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Algmat.cpp Decomposition.cpp Interpolation.cpp Msize.cpp Ndimension.cpp Object.cpp Regression.cpp Spline.cpp
+         Algmat.cpp
+         Decomposition.cpp
+         Interpolation.cpp
+         Msize.cpp
+         Ndimension.cpp
+         Object.cpp
+         Regression.cpp
+         Spline.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Glen\Desktop\Temporary\Project\C++\New\nml\Release-MT\nml.lib" /NOLOGO /LTCG "Release-MT\Algmat.obj"
+         "Release-MT\Decomposition.obj"
+         "Release-MT\Interpolation.obj"
+         "Release-MT\Msize.obj"
+         "Release-MT\Ndimension.obj"
+         "Release-MT\Object.obj"
+         "Release-MT\Regression.obj"
+         "Release-MT\Spline.obj"
+         "Release-MT\stdafx.obj"
+         nml.vcxproj -> C:\Users\Glen\Desktop\Temporary\Project\C++\New\nml\Release-MT\nml.lib
+     1>"C:\Users\Glen\Desktop\Temporary\Project\C++\New\nml\nml\nml.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:01.62
