@@ -1,5 +1,5 @@
-﻿빌드 시작: 2020-06-27 오전 11:16:48
-     1>2 노드의 "C:\Users\Glen\Desktop\Temporary\Project\C++\New\nml\nml\nml.vcxproj" 프로젝트(Rebuild 대상)입니다.
+﻿빌드 시작: 2020-06-28 오전 12:52:59
+     1>2 노드의 "D:\Project\C++\online\nml\nml\nml.vcxproj" 프로젝트(Rebuild 대상)입니다.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Z7 /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Release-MD\nml.pch" /Fo"Release-MD\\" /Fd"Release-MD\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
          stdafx.cpp
@@ -13,7 +13,7 @@
          Regression.cpp
          Spline.cpp
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Glen\Desktop\Temporary\Project\C++\New\nml\Release-MD\nml.lib" /NOLOGO /LTCG "Release-MD\Algmat.obj"
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"D:\Project\C++\online\nml\Release-MD\nml.lib" /NOLOGO /LTCG "Release-MD\Algmat.obj"
          "Release-MD\Decomposition.obj"
          "Release-MD\Interpolation.obj"
          "Release-MD\Msize.obj"
@@ -22,9 +22,9 @@
          "Release-MD\Regression.obj"
          "Release-MD\Spline.obj"
          "Release-MD\stdafx.obj"
-         nml.vcxproj -> C:\Users\Glen\Desktop\Temporary\Project\C++\New\nml\Release-MD\nml.lib
-     1>"C:\Users\Glen\Desktop\Temporary\Project\C++\New\nml\nml\nml.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
+         nml.vcxproj -> D:\Project\C++\online\nml\Release-MD\nml.lib
+     1>"D:\Project\C++\online\nml\nml\nml.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
 
 빌드했습니다.
 
-경과 시간: 00:00:01.59
+경과 시간: 00:00:01.66
