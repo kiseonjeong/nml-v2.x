@@ -4,3 +4,10 @@
 *.ipch
 *.opensdf
 *.sdf
+*.suo
+*.tlog
+*.pch
+*.log
+*.lastbuildstate
+*.idb
+*.obj
