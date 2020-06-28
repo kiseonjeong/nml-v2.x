@@ -36,7 +36,7 @@ namespace nml
 		~dim();
 
 		// Variables
-	public:
+	private:
 		std::vector<int> _d;			// dimension information
 		int _N;			// number of dimensions
 		int len;			// length of dimensions

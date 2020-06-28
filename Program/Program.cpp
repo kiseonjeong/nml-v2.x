@@ -25,7 +25,7 @@ void test_matrix()
 	t = clock();
 	for (int i = 0; i < 100000; i++)
 	{
-// 		for (int j = 0; j < m0.dm.length(); j++)
+// 		for (int j = 0; j < m0.length(); j++)
 // 		{
 // 			m0[0] = 3.14;
 // 		}

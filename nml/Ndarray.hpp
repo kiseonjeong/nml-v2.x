@@ -65,7 +65,7 @@ namespace nml
 	{
 		// Check the index
 		int addr = idx * step;
-		assert(idx >= 0 && idx < _dm.length());
+		assert(idx >= 0 && idx < length());
 
 		// Set a 1 dimensional index
 		ndarray<var, N - 1>& _sub = (ndarray<var, N - 1>&)sub;
@@ -210,6 +210,12 @@ namespace nml
 		{
 			ddata[i] = val;
 		}
+	}
+
+	template<typename var, const unsigned int N> const int ndarray<var, N>::length() const
+	{
+		// Get a total length
+		return tlen;
 	}
 
 	template<typename var, const unsigned int N> var* ndarray<var, N>::ptr() const
@@ -379,7 +385,7 @@ namespace nml
 	template<typename var> var& ndarray<var, 1>::operator[](const int idx) const
 	{
 		// Check the index
-		assert(idx >= 0 && idx < _dm.length());
+		assert(idx >= 0 && idx < length());
 
 		// Get a value
 		return ddata[idx];
@@ -514,6 +520,12 @@ namespace nml
 		{
 			ddata[i] = val;
 		}
+	}
+
+	template<typename var> const int ndarray<var, 1>::length() const
+	{
+		// Get a total length
+		return tlen;
 	}
 
 	template<typename var> var* ndarray<var, 1>::ptr() const

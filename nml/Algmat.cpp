@@ -57,11 +57,6 @@ namespace nml
 		return *this;
 	}
 
-	algmat::operator algmat&()
-	{
-		return *this;
-	}
-
 	void algmat::copyObject(const ndarray& obj)
 	{
 		// Do down casting
@@ -829,7 +824,7 @@ namespace nml
 		else
 		{
 			// Calculate mean values
-			return hsum(vsum(mat)) / (double)mat.dm.length();
+			return hsum(vsum(mat)) / (double)mat.length();
 		}
 	}
 

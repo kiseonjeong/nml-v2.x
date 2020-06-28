@@ -519,7 +519,7 @@ namespace nml
 		algmat delta = algmat::sqrt(curr.mul(curr) - prev.mul(prev));
 
 		// Check the matrix is convergence or not
-		for (int i = 0; i < delta.dm.length(); i++)
+		for (int i = 0; i < delta.length(); i++)
 		{
 			if (algmat::almost(delta[i], 0.0, 5) == false)
 			{

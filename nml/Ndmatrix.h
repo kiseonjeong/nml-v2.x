@@ -68,6 +68,36 @@ namespace nml
 
 			return result;
 		}
+		friend ndmatrix operator+(const ndarray<double, N>& mat0, const ndmatrix& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			assert(mat0.length() == mat1.tlen);
+
+			// Calculate an addition matrix
+			ndmatrix result(mat1.dm);
+			for (int i = 0; i < result.tlen; i++)
+			{
+				result.ddata[i] = mat0.ptr()[i] + mat1.ddata[i];
+			}
+
+			return result;
+		}
+		friend ndmatrix operator+(const ndmatrix& mat0, const ndarray<double, N>& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			assert(mat0.tlen == mat1.length());
+
+			// Calculate an addition matrix
+			ndmatrix result(mat0.dm);
+			for (int i = 0; i < result.tlen; i++)
+			{
+				result.ddata[i] = mat0.ddata[i] + mat1.ptr()[i];
+			}
+
+			return result;
+		}
 		friend ndmatrix operator+(const float val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (F32)
 		friend ndmatrix operator+(const int val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (S32)
 		friend ndmatrix operator+(const short val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (S16)
@@ -100,6 +130,36 @@ namespace nml
 			for (int i = 0; i < result.tlen; i++)
 			{
 				result.ddata[i] = val - result.ddata[i];
+			}
+
+			return result;
+		}
+		friend ndmatrix operator-(const ndarray<double, N>& mat0, const ndmatrix& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			assert(mat0.length() == mat1.tlen);
+
+			// Calculate an addition matrix
+			ndmatrix result(mat1.dm);
+			for (int i = 0; i < result.tlen; i++)
+			{
+				result.ddata[i] = mat0.ptr()[i] - mat1.ddata[i];
+			}
+
+			return result;
+		}
+		friend ndmatrix operator-(const ndmatrix& mat0, const ndarray<double, N>& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			assert(mat0.tlen == mat1.length());
+
+			// Calculate an addition matrix
+			ndmatrix result(mat0.dm);
+			for (int i = 0; i < result.tlen; i++)
+			{
+				result.ddata[i] = mat0.ddata[i] - mat1.ptr()[i];
 			}
 
 			return result;
@@ -140,6 +200,36 @@ namespace nml
 
 			return result;
 		}
+		friend ndmatrix operator*(const ndarray<double, N>& mat0, const ndmatrix& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			assert(mat0.length() == mat1.tlen);
+
+			// Calculate an addition matrix
+			ndmatrix result(mat1.dm);
+			for (int i = 0; i < result.tlen; i++)
+			{
+				result.ddata[i] = mat0.ptr()[i] * mat1.ddata[i];
+			}
+
+			return result;
+		}
+		friend ndmatrix operator*(const ndmatrix& mat0, const ndarray<double, N>& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			assert(mat0.tlen == mat1.length());
+
+			// Calculate an addition matrix
+			ndmatrix result(mat0.dm);
+			for (int i = 0; i < result.tlen; i++)
+			{
+				result.ddata[i] = mat0.ddata[i] * mat1.ptr()[i];
+			}
+
+			return result;
+		}
 		friend ndmatrix operator*(const float val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (F32)
 		friend ndmatrix operator*(const int val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (S32)
 		friend ndmatrix operator*(const short val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (S16)
@@ -176,6 +266,44 @@ namespace nml
 			for (int i = 0; i < result.tlen; i++)
 			{
 				result.ddata[i] = val / result.ddata[i];
+			}
+
+			return result;
+		}
+		friend ndmatrix operator/(const ndarray<double, N>& mat0, const ndmatrix& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			assert(mat0.length() == mat1.tlen);
+			for (int i = 0; i < mat1.tlen; i++)
+			{
+				assert(mat1.ddata[i] != 0.0);
+			}
+
+			// Calculate an addition matrix
+			ndmatrix result(mat1.dm);
+			for (int i = 0; i < result.tlen; i++)
+			{
+				result.ddata[i] = mat0.ptr()[i] / mat1.ddata[i];
+			}
+
+			return result;
+		}
+		friend ndmatrix operator/(const ndmatrix& mat0, const ndarray<double, N>& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			assert(mat0.tlen == mat1.length());
+			for (int i = 0; i < mat1.length(); i++)
+			{
+				assert(mat1.ptr()[i] != 0.0);
+			}
+
+			// Calculate an addition matrix
+			ndmatrix result(mat0.dm);
+			for (int i = 0; i < result.tlen; i++)
+			{
+				result.ddata[i] = mat0.ddata[i] / mat1.ptr()[i];
 			}
 
 			return result;

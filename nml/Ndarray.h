@@ -15,6 +15,7 @@ namespace nml
 		void create(const dim& di);			// Create an array
 		void release();			// Release an array
 		void set(const var val);			// Set a value
+		const int length() const;			// Get a total length
 		var* ptr() const;			// Get a data pointer
 		bool empty() const;			// Check an array
 		void cout() const;			// Console out for an array
@@ -69,6 +70,7 @@ namespace nml
 		void create(const dim& di);			// Create an array
 		void release();			// Release an array
 		void set(const var val);			// Set a value
+		const int length() const;			// Get a total length
 		var* ptr() const;			// Get a data pointer
 		bool empty() const;			// Check the array
 		void cout() const;			// Console out for an array

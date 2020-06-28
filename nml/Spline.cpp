@@ -12,13 +12,13 @@ namespace nml
 	void spline::checkLength(const algmat& X, const algmat& Y) const
 	{
 		// Check the length of the matrices
-		assert(X.dm.length() > 1 && Y.dm.length() > 1);
+		assert(X.length() > 1 && Y.length() > 1);
 	}
 
 	void spline::compareLength(const algmat& X, const algmat& Y) const
 	{
 		// Compare the length between the matrices
-		assert(X.dm.length() == Y.dm.length());
+		assert(X.length() == Y.length());
 	}
 
 	const algmat spline::coeff() const
@@ -156,11 +156,11 @@ namespace nml
 		C.release();
 
 		// Backup the input vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set an interval matrix
-		numpt = X.dm.length();
+		numpt = X.length();
 		numit = numpt - 1;
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
@@ -271,11 +271,11 @@ namespace nml
 		C.release();
 
 		// Backup the vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set an interval matrix
-		numpt = X.dm.length();
+		numpt = X.length();
 		numit = numpt - 1;
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
@@ -669,11 +669,11 @@ namespace nml
 		C.release();
 
 		// Backup the input vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set an interval matrix
-		numpt = X.dm.length();
+		numpt = X.length();
 		numit = numpt - 1;
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
@@ -800,7 +800,7 @@ namespace nml
 	{
 		// Create a result matrix
 		algmat res(msize(numpt, 1), 0.0);
-		for (int i = 1; i < res.dm.length() - 1; i++)
+		for (int i = 1; i < res.length() - 1; i++)
 		{
 			res[i] = 3.0 * (S[i] - S[i - 1]);
 		}
@@ -1227,11 +1227,11 @@ namespace nml
 		C.release();
 
 		// Backup the iuput vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set an interval matrix
-		numpt = X.dm.length();
+		numpt = X.length();
 		numit = numpt - 1;
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
@@ -1386,11 +1386,11 @@ namespace nml
 		C.release();
 
 		// Backup the input vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set an interval matrix
-		numpt = X.dm.length();
+		numpt = X.length();
 		numit = numpt - 1;
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)

@@ -12,13 +12,13 @@ namespace nml
 	void interpolation::checkLength(const algmat& X, const algmat& Y) const
 	{
 		// Check the length of the matrices
-		assert(X.dm.length() > 1 && Y.dm.length() > 1);
+		assert(X.length() > 1 && Y.length() > 1);
 	}
 
 	void interpolation::compareLength(const algmat& X, const algmat& Y) const
 	{
 		// Compare the length between the matrices
-		assert(X.dm.length() == Y.dm.length());
+		assert(X.length() == Y.length());
 	}
 
 	const algmat interpolation::coeff() const
@@ -122,11 +122,11 @@ namespace nml
 		C.release();
 
 		// Backup the input vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set the degree
-		deg = X.dm.length() - 1;
+		deg = X.length() - 1;
 
 		// Calculate the coefficients
 		calculate();
@@ -146,7 +146,7 @@ namespace nml
 
 		// Create the Vandermonde matrix Y
 		algmat vY(msize(deg + 1, 1));
-		for (int i = 0; i < vY.dm.length(); i++)
+		for (int i = 0; i < vY.length(); i++)
 		{
 			vY[i] = Y[i];
 		}
@@ -162,7 +162,7 @@ namespace nml
 
 		// Interpolate a value on the input X
 		double y = 0.0;
-		for (int i = 0; i < C.dm.length(); i++)
+		for (int i = 0; i < C.length(); i++)
 		{
 			y += C[i] * pow(x, deg - i);
 		}
@@ -267,11 +267,11 @@ namespace nml
 		C.release();
 
 		// Backup the input vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set the degree
-		deg = X.dm.length() - 1;
+		deg = X.length() - 1;
 
 		// Calculate the coefficients
 		idx = 0;
@@ -282,9 +282,9 @@ namespace nml
 	void newton::calculate(const algmat& X, const algmat& Y)
 	{
 		// Calculate a divided difference value
-		algmat diff(msize(1, Y.dm.length() - 1));
-		const int offset = X.dm.length() - Y.dm.length();
-		for (int i = 0; i < diff.dm.length(); i++)
+		algmat diff(msize(1, Y.length() - 1));
+		const int offset = X.length() - Y.length();
+		for (int i = 0; i < diff.length(); i++)
 		{
 			diff[i] = slope(X[i], Y[i], X[i + 1 + offset], Y[i + 1]);
 		}
@@ -299,7 +299,7 @@ namespace nml
 		idx++;
 
 		// Calculate the others
-		if (diff.dm.length() != 1)
+		if (diff.length() != 1)
 		{
 			calculate(X, diff);
 		}
@@ -318,7 +318,7 @@ namespace nml
 
 		// Interpolate a value on the input X
 		double y = C[0];
-		for (int i = 1; i < C.dm.length(); i++)
+		for (int i = 1; i < C.length(); i++)
 		{
 			double mp = x - X[0];
 			for (int j = 1; j < i; j++)
@@ -426,11 +426,11 @@ namespace nml
 		C.release();
 
 		// Backup the vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set the degree
-		deg = X.dm.length() - 1;
+		deg = X.length() - 1;
 	}
 
 	const double lagrange::interpolate(const double x) const

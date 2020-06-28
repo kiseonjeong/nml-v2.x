@@ -12,13 +12,13 @@ namespace nml
 	void regression::checkLength(const algmat& X, const algmat& Y) const
 	{
 		// Check the length of the matrices
-		assert(X.dm.length() > 1 && Y.dm.length() > 1);
+		assert(X.length() > 1 && Y.length() > 1);
 	}
 
 	void regression::compareLength(const algmat& X, const algmat& Y) const
 	{
 		// Compare the length between the matrices
-		assert(X.dm.length() == Y.dm.length());
+		assert(X.length() == Y.length());
 	}
 
 	const algmat regression::coeff() const
@@ -123,8 +123,8 @@ namespace nml
 		C.release();
 
 		// Backup the input vectors
-		this->X = X.reshape(X.dm.length());
-		this->Y = Y.reshape(Y.dm.length());
+		this->X = X.reshape(X.length());
+		this->Y = Y.reshape(Y.length());
 
 		// Set the degree
 		this->deg = deg;
@@ -157,7 +157,7 @@ namespace nml
 		{
 			for (int j = 0; j < Xp.cols; j++)
 			{
-				for (int k = 0; k < X.dm.length(); k++)
+				for (int k = 0; k < X.length(); k++)
 				{
 					Xp[i][j] += pow(X[k], i + j);
 				}
@@ -168,7 +168,7 @@ namespace nml
 		algmat Yp(msize(deg + 1, 1), 0.0);
 		for (int i = 0; i < Yp.rows; i++)
 		{
-			for (int j = 0; j < Y.dm.length(); j++)
+			for (int j = 0; j < Y.length(); j++)
 			{
 				Yp[i] += pow(X[j], i) * Y[j];
 			}
@@ -186,7 +186,7 @@ namespace nml
 		// Fit a value on the input X
 		double xp = (x - meanX) / (stdX + epsilon);
 		double y = 0.0;
-		for (int i = 0; i < C.dm.length(); i++)
+		for (int i = 0; i < C.length(); i++)
 		{
 			y += C[i] * pow(xp, i);
 		}

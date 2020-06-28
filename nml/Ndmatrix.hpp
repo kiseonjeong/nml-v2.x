@@ -427,11 +427,11 @@ namespace nml
 		assert(empty() == false);
 		assert(mat.empty() == false);
 		assert(_dm.N == mat._dm.N);
-		if (mat.dm.length() == 1)
+		if (mat.length() == 1)
 		{
 			return add(mat[0]);
 		}
-		else if (_dm.length() == 1)
+		else if (length() == 1)
 		{
 			return ddata[0] + mat;
 		}
@@ -459,7 +459,7 @@ namespace nml
 			vector<int> bci;
 			const int d = 0;
 			int cstep = 1;
-			if (_dm.length() > mat.dm.length())
+			if (length() > mat.length())
 			{
 				// Calculate steps for N dimensions
 				for (int i = 1; i < mat.dm.N; i++)
@@ -538,11 +538,11 @@ namespace nml
 		assert(empty() == false);
 		assert(mat.empty() == false);
 		assert(_dm.N == mat._dm.N);
-		if (mat.dm.length() == 1)
+		if (mat.length() == 1)
 		{
 			return sub(mat[0]);
 		}
-		else if (_dm.length() == 1)
+		else if (length() == 1)
 		{
 			return ddata[0] - mat;
 		}
@@ -570,7 +570,7 @@ namespace nml
 			vector<int> bci;
 			const int d = 0;
 			int cstep = 1;
-			if (_dm.length() > mat.dm.length())
+			if (length() > mat.length())
 			{
 				// Calculate steps for N dimensions
 				for (int i = 1; i < mat.dm.N; i++)
@@ -649,11 +649,11 @@ namespace nml
 		assert(empty() == false);
 		assert(mat.empty() == false);
 		assert(_dm.N == mat._dm.N);
-		if (mat.dm.length() == 1)
+		if (mat.length() == 1)
 		{
 			return mul(mat[0]);
 		}
-		else if (_dm.length() == 1)
+		else if (length() == 1)
 		{
 			return ddata[0] * mat;
 		}
@@ -681,7 +681,7 @@ namespace nml
 			vector<int> bci;
 			const int d = 0;
 			int cstep = 1;
-			if (_dm.length() > mat.dm.length())
+			if (length() > mat.length())
 			{
 				// Calculate steps for N dimensions
 				for (int i = 1; i < mat.dm.N; i++)
@@ -760,11 +760,11 @@ namespace nml
 		assert(empty() == false);
 		assert(mat.empty() == false);
 		assert(_dm.N == mat._dm.N);
-		if (mat.dm.length() == 1)
+		if (mat.length() == 1)
 		{
 			return div(mat[0]);
 		}
-		else if (_dm.length() == 1)
+		else if (length() == 1)
 		{
 			return ddata[0] / mat;
 		}
@@ -796,7 +796,7 @@ namespace nml
 			vector<int> bci;
 			const int d = 0;
 			int cstep = 1;
-			if (_dm.length() > mat.dm.length())
+			if (length() > mat.length())
 			{
 				// Calculate steps for N dimensions
 				for (int i = 1; i < mat.dm.N; i++)
