@@ -57,6 +57,11 @@ namespace nml
 		return *this;
 	}
 
+	algmat::operator algmat&()
+	{
+		return *this;
+	}
+
 	void algmat::copyObject(const ndarray& obj)
 	{
 		// Do down casting
