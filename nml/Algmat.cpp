@@ -32,6 +32,12 @@ namespace nml
 		set(val);
 	}
 
+	algmat::algmat(const ndarray<double, 2>& obj) : rows(sz.d0), cols(sz.d1)
+	{
+		// Copy the object
+		copyObject(obj);
+	}
+
 	algmat::algmat(const ndmatrix<2>& obj) : rows(sz.d0), cols(sz.d1)
 	{
 		// Copy the object

@@ -55,6 +55,7 @@ namespace nml
 		algmat();
 		algmat(const msize& sz);
 		algmat(const msize& sz, const double val);
+		algmat(const ndarray<double, 2>& obj);
 		algmat(const ndmatrix<2>& obj);
 		algmat(const algmat& obj);
 		~algmat();
