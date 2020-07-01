@@ -17,7 +17,7 @@ namespace nml
 
 		// Operators
 	public:
-		virtual algmat operator[](const int idx) const;			// Get the decomposition result
+		virtual const algmat& operator[](const int idx) const;			// Get the decomposition result
 
 		// Variables
 	protected:
@@ -172,7 +172,7 @@ namespace nml
 		// Operators
 	public:
 		SVD& operator=(const SVD& obj);
-		algmat operator[](const int idx) const;
+		const algmat& operator[](const int idx) const;
 
 		// Constructors & Destructor
 	public:

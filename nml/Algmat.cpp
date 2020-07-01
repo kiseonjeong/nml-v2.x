@@ -63,6 +63,42 @@ namespace nml
 		return *this;
 	}
 
+	const double& algmat::operator()(const int idx) const
+	{
+		// Check an index
+		assert(idx >= 0 && idx < cols * rows);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	double& algmat::operator()(const int idx)
+	{
+		// Check an index
+		assert(idx >= 0 && idx < cols * rows);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	const double& algmat::operator()(const int idx0, const int idx1) const
+	{
+		// Check an index
+		assert(idx0 >= 0 && idx0 < rows && idx1 >= 0 && idx1 < cols);
+
+		// Get a value
+		return ddata[idx0 * cols + idx1];
+	}
+
+	double& algmat::operator()(const int idx0, const int idx1)
+	{
+		// Check an index
+		assert(idx0 >= 0 && idx0 < rows && idx1 >= 0 && idx1 < cols);
+
+		// Get a value
+		return ddata[idx0 * cols + idx1];
+	}
+
 	void algmat::copyObject(const ndarray& obj)
 	{
 		// Do down casting
@@ -146,7 +182,7 @@ namespace nml
 			{
 				for (int l = 0; l < vmat[i].cols; l++)
 				{
-					result[j + k][l] = vmat[i][k][l];
+					result(j + k, l) = vmat[i](k, l);
 				}
 			}
 			j += vmat[i].rows;
@@ -178,7 +214,7 @@ namespace nml
 			{
 				for (int l = 0; l < vmat[i].rows; l++)
 				{
-					result[l][j + k] = vmat[i][l][k];
+					result(l, j + k) = vmat[i](l, k);
 				}
 			}
 			j += vmat[i].cols;
@@ -239,7 +275,7 @@ namespace nml
 		{
 			for (int j = 0; j < cols; j++)
 			{
-				result[k][j] = (*this)[i][j];
+				result(k, j) = (*this)(i, j);
 			}
 		}
 
@@ -263,7 +299,7 @@ namespace nml
 		{
 			for (int j = bi, k = 0; j <= ei; j += ii, k++)
 			{
-				result[i][k] = (*this)[i][j];
+				result(i, k) = (*this)(i, j);
 			}
 		}
 
@@ -308,7 +344,7 @@ namespace nml
 		{
 			for (int j = 0; j < cols; j++)
 			{
-				result[j][i] = (*this)[i][j];
+				result(j, i) = (*this)(i, j);
 			}
 		}
 
@@ -339,7 +375,7 @@ namespace nml
 			// Copy the data
 			for (int j = 0; j < cols; j++)
 			{
-				result[k][j] = (*this)[i][j];
+				result(k, j) = (*this)(i, j);
 			}
 			k++;
 		}
@@ -371,7 +407,7 @@ namespace nml
 			// Copy the data
 			for (int j = 0; j < rows; j++)
 			{
-				result[j][k] = (*this)[j][i];
+				result(j, k) = (*this)(j, i);
 			}
 			k++;
 		}
@@ -379,7 +415,7 @@ namespace nml
 		return result;
 	}
 
-	void algmat::swap(const int fi, const int ti, const int axis) const
+	void algmat::swap(const int fi, const int ti, const int axis)
 	{
 		// Check matrix status
 		assert(empty() == false);
@@ -397,7 +433,7 @@ namespace nml
 		}
 	}
 
-	void algmat::vswap(const int fi, const int ti) const
+	void algmat::vswap(const int fi, const int ti)
 	{
 		// Check the indices
 		assert(fi >= 0 && fi < rows);
@@ -407,12 +443,12 @@ namespace nml
 		algmat temp = submat(fi, 0);
 		for (int i = 0; i < cols; i++)
 		{
-			(*this)[fi][i] = (*this)[ti][i];
-			(*this)[ti][i] = temp[0][i];
+			(*this)(fi, i) = (*this)(ti, i);
+			(*this)(ti, i) = temp(0, i);
 		}
 	}
 
-	void algmat::hswap(const int fi, const int ti) const
+	void algmat::hswap(const int fi, const int ti)
 	{
 		// Check the indices
 		assert(fi >= 0 && fi < cols);
@@ -422,12 +458,12 @@ namespace nml
 		algmat temp = submat(fi, 1);
 		for (int i = 0; i < cols; i++)
 		{
-			(*this)[i][fi] = (*this)[i][ti];
-			(*this)[i][ti] = temp[i][0];
+			(*this)(i, fi) = (*this)(i, ti);
+			(*this)(i, ti) = temp(i, 0);
 		}
 	}
 
-	void algmat::sort(const bool desc, const int axis) const
+	void algmat::sort(const bool desc, const int axis)
 	{
 		// Check matrix status
 		assert(empty() == false);
@@ -445,7 +481,7 @@ namespace nml
 		}
 	}
 
-	void algmat::vsort(const bool desc) const
+	void algmat::vsort(const bool desc)
 	{
 		// Transpose the matrix
 		algmat trans = transpose(dim(2, 1, 0));
@@ -456,12 +492,12 @@ namespace nml
 		{
 			for (int j = 0; j < trans.cols; j++)
 			{
-				(*this)[j][i] = trans[i][j];
+				(*this)(j, i) = trans(i, j);
 			}
 		}
 	}
 
-	void algmat::hsort(const bool desc) const
+	void algmat::hsort(const bool desc)
 	{
 		// Check a sorting method
 		if (desc == true)
@@ -512,9 +548,9 @@ namespace nml
 		{
 			for (int j = 0; j < rows; j++)
 			{
-				if ((*this)[j][i] == val)
+				if ((*this)(j, i) == val)
 				{
-					result[0][i] += 1.0;
+					result(i) += 1.0;
 				}
 			}
 		}
@@ -530,9 +566,9 @@ namespace nml
 		{
 			for (int j = 0; j < cols; j++)
 			{
-				if ((*this)[i][j] == val)
+				if ((*this)(i, j) == val)
 				{
-					result[i][0] += 1.0;
+					result(i) += 1.0;
 				}
 			}
 		}
@@ -577,17 +613,17 @@ namespace nml
 		for (int i = 0; i < mat.cols; i++)
 		{
 			int arg = 0;
-			double val = mat[0][i];
+			double val = mat(0, i);
 			for (int j = 1; j < mat.rows; j++)
 			{
-				if (val > mat[j][i])
+				if (val > mat(j, i))
 				{
 					arg = j;
-					val = mat[j][i];
+					val = mat(j, i);
 				}
 			}
-			loc[0][i] = arg;
-			result[0][i] = val;
+			loc(0, i) = arg;
+			result(0, i) = val;
 		}
 
 		return result;
@@ -600,17 +636,17 @@ namespace nml
 		for (int i = 0; i < mat.rows; i++)
 		{
 			int arg = 0;
-			double val = mat[i][0];
+			double val = mat(i, 0);
 			for (int j = 1; j < mat.cols; j++)
 			{
-				if (val > mat[i][j])
+				if (val > mat(i, j))
 				{
 					arg = j;
-					val = mat[i][j];
+					val = mat(i, j);
 				}
 			}
-			loc[i][0] = arg;
-			result[i][0] = val;
+			loc(i, 0) = arg;
+			result(i, 0) = val;
 		}
 
 		return result;
@@ -686,17 +722,17 @@ namespace nml
 		for (int i = 0; i < mat.cols; i++)
 		{
 			int arg = 0;
-			double val = mat[0][i];
+			double val = mat(0, i);
 			for (int j = 1; j < mat.rows; j++)
 			{
-				if (val < mat[j][i])
+				if (val < mat(j, i))
 				{
 					arg = j;
-					val = mat[j][i];
+					val = mat(j, i);
 				}
 			}
-			loc[0][i] = arg;
-			result[0][i] = val;
+			loc(0, i) = arg;
+			result(0, i) = val;
 		}
 
 		return result;
@@ -709,17 +745,17 @@ namespace nml
 		for (int i = 0; i < mat.rows; i++)
 		{
 			int arg = 0;
-			double val = mat[i][0];
+			double val = mat(i, 0);
 			for (int j = 1; j < mat.cols; j++)
 			{
-				if (val < mat[i][j])
+				if (val < mat(i, j))
 				{
 					arg = j;
-					val = mat[i][j];
+					val = mat(i, j);
 				}
 			}
-			loc[i][0] = arg;
-			result[i][0] = val;
+			loc(i, 0) = arg;
+			result(i, 0) = val;
 		}
 
 		return result;
@@ -789,7 +825,7 @@ namespace nml
 		{
 			for (int j = 0; j < mat.rows; j++)
 			{
-				result[0][i] += mat[j][i];
+				result(i) += mat(j, i);
 			}
 		}
 
@@ -804,7 +840,7 @@ namespace nml
 		{
 			for (int j = 0; j < mat.cols; j++)
 			{
-				result[i][0] += mat[i][j];
+				result(i) += mat(i, j);
 			}
 		}
 
@@ -885,7 +921,7 @@ namespace nml
 		algmat result(msize(rows, cols), 0.0);
 		for (int i = 0; i < rows; i++)
 		{
-			result[i][i] = (*this)[i][i];
+			result(i, i) = (*this)(i, i);
 		}
 
 		return result;
@@ -934,7 +970,7 @@ namespace nml
 		algmat result(msize(len, len), 0.0);
 		for (int i = 0; i < len; i++)
 		{
-			result[i][i] = 1.0;
+			result(i, i) = 1.0;
 		}
 
 		return result;
@@ -948,10 +984,10 @@ namespace nml
 
 		// Get a permutation matrix
 		algmat result = eyes(len);
-		result[i0][i0] = 0.0;
-		result[i1][i1] = 0.0;
-		result[i0][i1] = 1.0;
-		result[i1][i0] = 1.0;
+		result(i0, i0) = 0.0;
+		result(i1, i1) = 0.0;
+		result(i0, i1) = 1.0;
+		result(i1, i0) = 1.0;
 
 		return result;
 	}
@@ -1001,9 +1037,9 @@ namespace nml
 				double val = 0.0;
 				for (int k = 0; k < cols; k++)
 				{
-					val += (*this)[i][k] * mat[k][j];
+					val += (*this)(i, k) * mat(k, j);
 				}
-				result[i][j] = val;
+				result(i, j) = val;
 			}
 		}
 
@@ -1022,7 +1058,7 @@ namespace nml
 		{
 			for (int j = 0; j < result.cols; j++)
 			{
-				result[i][j] = std::pow(-1.0, i + j) * expansion(minor(i, 0).minor(j, 1));
+				result(i, j) = (std::pow(-1.0, i + j) * expansion(minor(i, 0).minor(j, 1)))(0);
 			}
 		}
 
@@ -1035,7 +1071,7 @@ namespace nml
 		algmat result(msize(1), 0.0);
 		if (mat.rows == 2 && mat.cols == 2)
 		{
-			result[0][0] = mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
+			result(0, 0) = mat(0, 0) * mat(1, 1) - mat(0, 1) * mat(1, 0);
 		}
 		else
 		{
@@ -1046,7 +1082,7 @@ namespace nml
 				int zc = 0;
 				for (int j = 0; j < mat.cols; j++)
 				{
-					if (almost(mat[i][j], 0.0) == true)
+					if (almost(mat(i, j), 0.0) == true)
 					{
 						zc++;
 					}
@@ -1063,7 +1099,7 @@ namespace nml
 			{
 				if (almost(mat[idx][i], 0.0) == false)
 				{
-					result += std::pow(-1.0, idx + i) * mat[idx][i] * expansion(mat.minor(idx, 0).minor(i, 1));
+					result += std::pow(-1.0, idx + i) * mat(idx, i) * expansion(mat.minor(idx, 0).minor(i, 1));
 				}
 			}
 		}
@@ -1082,14 +1118,14 @@ namespace nml
 		if (result.rows == 2 && result.cols == 2)
 		{
 			// Check a determinant
-			double val = (*this)[0][0] * (*this)[1][1] - (*this)[0][1] * (*this)[1][0];
+			double val = (*this)(0, 0) * (*this)(1, 1) - (*this)(0, 1) * (*this)(1, 0);
 			assert(almost(val, 0.0) == false);
 
 			// Calculate an inverse matrix
-			result[0][0] = (*this)[1][1] / val;
-			result[1][1] = (*this)[0][0] / val;
-			result[1][0] = -(*this)[1][0] / val;
-			result[0][1] = -(*this)[0][1] / val;
+			result(0, 0) = (*this)(1, 1) / val;
+			result(1, 1) = (*this)(0, 0) / val;
+			result(1, 0) = -(*this)(1, 0) / val;
+			result(0, 1) = -(*this)(0, 1) / val;
 		}
 		else
 		{
@@ -1100,7 +1136,7 @@ namespace nml
 			double val = 0.0;
 			for (int i = 0; i < cols; i++)
 			{
-				val += c[0][i] * (*this)[0][i];
+				val += c(0, i) * (*this)(0, i);
 			}
 			assert(almost(val, 0.0) == false);
 
@@ -1129,13 +1165,13 @@ namespace nml
 			algmat c(msize(1, cols));
 			for (int i = 0; i < cols; i++)
 			{
-				c[0][i] = std::pow(-1.0, i) * expansion(minor(0, 0).minor(i, 1));
+				c(0, i) = (std::pow(-1.0, i) * expansion(minor(0, 0).minor(i, 1)))(0);
 			}
 
 			// Calculate a determinant
 			for (int i = 0; i < cols; i++)
 			{
-				result[0][0] += c[0][i] * (*this)[0][i];
+				result(0, 0) += c(0, i) * (*this)(0, i);
 			}
 		}
 

@@ -45,6 +45,9 @@
     <ClInclude Include="Property.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="nml.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Ndmatrix.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -69,9 +72,6 @@
     <ClInclude Include="Spline.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="nml.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -83,10 +83,10 @@
     <ClCompile Include="Object.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Algmat.cpp">
+    <ClCompile Include="Msize.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Msize.cpp">
+    <ClCompile Include="Algmat.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Decomposition.cpp">

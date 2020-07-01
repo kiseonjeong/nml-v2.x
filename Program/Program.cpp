@@ -12,7 +12,7 @@ void test_spline();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	test_matrix();
+	test_spline();
 
 	return 0;
 }
@@ -27,14 +27,7 @@ void test_matrix()
 	{
 // 		for (int j = 0; j < m0.length(); j++)
 // 		{
-// 			m0[0] = 3.14;
-// 		}
-// 		for (int j = 0; j < m0.dm[0]; j++)
-// 		{
-// 			for (int k = 0; k < m0.dm[1]; k++)
-// 			{
-// 				m0[0][0] = 3.14;
-// 			}
+// 			m0(0, 0) = 3.14;
 // 		}
 		algmat m2(m0);
 	}
@@ -51,16 +44,16 @@ void test_broadcast()
 	m0[3][0] = 5; m0[3][1] = 3; m0[3][2] = 9; m0[3][3] = 8;
 	m0.cout();
 	algmat m1(msize(4, 1));
-	m1[0] = 10;
-	m1[1] = 20;
-	m1[2] = 30;
-	m1[3] = 40;
+	m1[0][0] = 10;
+	m1[1][0] = 20;
+	m1[2][0] = 30;
+	m1[3][0] = 40;
 	m1.cout();
 	algmat m2(msize(1, 4));
-	m2[0] = 10;
-	m2[1] = 20;
-	m2[2] = 30;
-	m2[3] = 40;
+	m2[0][0] = 10;
+	m2[0][1] = 20;
+	m2[0][2] = 30;
+	m2[0][3] = 40;
 	m2.cout();
 	(m0 + m1).cout();
 	(m1 + m0).cout();
@@ -97,7 +90,7 @@ void test_decomposition()
 	ev[1].cout();
 	ev[0].dot(ev[1]).dot(ev[0].inv()).cout();
 	algmat m1(msize(1, 4));
-	m1[0] = 5; m1[1] = 3; m1[2] = 9; m1[3] = 8;
+	m1[0][0] = 5; m1[0][1] = 3; m1[0][2] = 9; m1[0][3] = 8;
 	m1.cout();
 	SVD sv(m1);
 	sv[0].cout();
@@ -122,8 +115,8 @@ void test_interpolation()
 
 	algmat X(msize(6, 1));
 	algmat Y(msize(6, 1));
- 	X[0] = 0.0; X[1] = 1.0; X[2] = 2.0; X[3] = 3.0; X[4] = 4.0; X[5] = 5.0;
- 	Y[0] = 2.1; Y[1] = 7.7; Y[2] = 13.6; Y[3] = 27.2; Y[4] = 40.9; Y[5] = 61.1;
+	X[0][0] = 0.0; X[1][0] = 1.0; X[2][0] = 2.0; X[3][0] = 3.0; X[4][0] = 4.0; X[5][0] = 5.0;
+	Y[0][0] = 2.1; Y[1][0] = 7.7; Y[2][0] = 13.6; Y[3][0] = 27.2; Y[4][0] = 40.9; Y[5][0] = 61.1;
 	vandermonde vd(X, Y);
 	double result = vd.interpolate(4.5);
 	algmat C = vd.coeff();
@@ -146,8 +139,8 @@ void test_regression()
 
 	algmat X(msize(6, 1));
 	algmat Y(msize(6, 1));
-	X[0] = 0.0; X[1] = 1.0; X[2] = 2.0; X[3] = 3.0; X[4] = 4.0; X[5] = 5.0;
-	Y[0] = 2.1; Y[1] = 7.7; Y[2] = 13.6; Y[3] = 27.2; Y[4] = 40.9; Y[5] = 61.1;
+	X[0][0] = 0.0; X[1][0] = 1.0; X[2][0] = 2.0; X[3][0] = 3.0; X[4][0] = 4.0; X[5][0] = 5.0;
+	Y[0][0] = 2.1; Y[1][0] = 7.7; Y[2][0] = 13.6; Y[3][0] = 27.2; Y[4][0] = 40.9; Y[5][0] = 61.1;
 	polyfit pf(X, Y, 3);
 	double result = pf.fit(4.5);
 	algmat C = pf.coeff();
@@ -172,8 +165,8 @@ void test_spline()
 
 	algmat X(msize(4, 1));
 	algmat Y(msize(4, 1));
-	X[0] = 3.0; X[1] = 4.5; X[2] = 7.0; X[3] = 9.0;
-	Y[0] = 2.5; Y[1] = 1.0; Y[2] = 2.5; Y[3] = 0.5;
+	X[0][0] = 3.0; X[1][0] = 4.5; X[2][0] = 7.0; X[3][0] = 9.0;
+	Y[0][0] = 2.5; Y[1][0] = 1.0; Y[2][0] = 2.5; Y[3][0] = 0.5;
 	linear_spline sp1(X, Y);
 	double result = sp1.interpolate(5.0);
 	algmat C = sp1.coeff();

@@ -139,13 +139,13 @@ namespace nml
 	void polyfit::standardization()
 	{
 		// Do whitening the vector X
-		meanX = algmat::mean(X);
-		stdX = algmat::std(X);
+		meanX = algmat::mean(X)(0);
+		stdX = algmat::std(X)(0);
 		X = (X - meanX) / (stdX + epsilon);
 
 		// Do whitening the vector Y
-		meanY = algmat::mean(Y);
-		stdY = algmat::std(Y);
+		meanY = algmat::mean(Y)(0);
+		stdY = algmat::std(Y)(0);
 		Y = (Y - meanY) / (stdY + epsilon);
 	}
 
@@ -159,7 +159,7 @@ namespace nml
 			{
 				for (int k = 0; k < X.length(); k++)
 				{
-					Xp[i][j] += pow(X[k], i + j);
+					Xp(i, j) += pow(X(k), i + j);
 				}
 			}
 		}
@@ -170,7 +170,7 @@ namespace nml
 		{
 			for (int j = 0; j < Y.length(); j++)
 			{
-				Yp[i] += pow(X[j], i) * Y[j];
+				Yp(i) += pow(X(j), i) * Y(j);
 			}
 		}
 
@@ -188,7 +188,7 @@ namespace nml
 		double y = 0.0;
 		for (int i = 0; i < C.length(); i++)
 		{
-			y += C[i] * pow(xp, i);
+			y += C(i) * pow(xp, i);
 		}
 
 		return y * (stdY + epsilon) + meanY;

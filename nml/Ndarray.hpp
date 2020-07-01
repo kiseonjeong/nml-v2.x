@@ -18,6 +18,21 @@ namespace nml
 		create(di);
 	}
 
+	template<typename var, const unsigned int N> ndarray<var, N>::ndarray(const dim& di, const var& val) : dm(_dm)
+	{
+		// Set an object
+		setObject();
+
+		// Check a dimension value
+		assert(di.N == N);
+
+		// Create an array
+		create(di);
+
+		// Set the array
+		set(val);
+	}
+
 	template<typename var, const unsigned int N> ndarray<var, N>::ndarray(const ndarray<var, N>& obj) : dm(_dm)
 	{
 		// Set an object
@@ -41,37 +56,49 @@ namespace nml
 		return *this;
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::operator=(const var val)
+	template<typename var, const unsigned int N> const ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx) const
 	{
-		// Set a value
-		tdata[tidx] = val;
-
-		// Initialize the temporary index
-		tidx = 0;
-	}
-
-	template<typename var, const unsigned int N> ndarray<var, N>::operator var&()
-	{
-		// Get a value
-		var& val = tdata[tidx];
-
-		// Initialize the temporary index
-		tidx = 0;
-
-		return val;
-	}
-
-	template<typename var, const unsigned int N> ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx) const
-	{
-		// Check the index
+		// Check an address
 		int addr = idx * step;
-		assert(idx >= 0 && idx < length());
+		assert(idx >= 0 && idx < dlen);
 
 		// Set a 1 dimensional index
 		ndarray<var, N - 1>& _sub = (ndarray<var, N - 1>&)sub;
 		_sub.subdata(&ddata[addr], idx);
 
-		return _sub;
+		// Get a sub-dimensional array
+		return sub;
+	}
+
+	template<typename var, const unsigned int N> ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx)
+	{
+		// Check an address
+		int addr = idx * step;
+		assert(idx >= 0 && idx < dlen);
+
+		// Set a 1 dimensional index
+		sub.subdata(&ddata[addr], idx);
+
+		// Get a sub-dimensional array
+		return sub;
+	}
+
+	template<typename var, const unsigned int N> const var& ndarray<var, N>::operator()(const int idx) const
+	{
+		// Check an index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var, const unsigned int N> var& ndarray<var, N>::operator()(const int idx)
+	{
+		// Check an index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
 	}
 
 	template<typename var, const unsigned int N> void ndarray<var, N>::setObject()
@@ -200,7 +227,7 @@ namespace nml
 		clearObject();
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::set(const var val)
+	template<typename var, const unsigned int N> void ndarray<var, N>::set(const var& val)
 	{
 		// Check the dimension information
 		assert(_dm.d.size() > 0);
@@ -342,6 +369,21 @@ namespace nml
 		create(di);
 	}
 
+	template<typename var> ndarray<var, 1>::ndarray(const dim& di, const var& val) : dm(_dm)
+	{
+		// Set an object
+		setObject();
+
+		// Check a dimension value
+		assert(di.N == 1);
+
+		// Create an array
+		create(di);
+
+		// Set the array
+		set(val);
+	}
+
 	template<typename var> ndarray<var, 1>::ndarray(const ndarray<var, 1>& obj) : dm(_dm)
 	{
 		// Copy the object
@@ -362,30 +404,37 @@ namespace nml
 		return *this;
 	}
 
-	template<typename var> void ndarray<var, 1>::operator=(const var val)
-	{
-		// Set a value
-		tdata[tidx] = val;
-
-		// Initialize the temporary index
-		tidx = 0;
-	}
-
-	template<typename var> ndarray<var, 1>::operator var&()
-	{
-		// Get a value
-		var& val = tdata[tidx];
-
-		// Initialize the temporary index
-		tidx = 0;
-
-		return val;
-	}
-
-	template<typename var> var& ndarray<var, 1>::operator[](const int idx) const
+	template<typename var> const var& ndarray<var, 1>::operator[](const int idx) const
 	{
 		// Check the index
-		assert(idx >= 0 && idx < length());
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var> var& ndarray<var, 1>::operator[](const int idx)
+	{
+		// Check the index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var> const var& ndarray<var, 1>::operator()(const int idx) const
+	{
+		// Check an index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var> var& ndarray<var, 1>::operator()(const int idx)
+	{
+		// Check an index
+		assert(idx >= 0 && idx < tlen);
 
 		// Get a value
 		return ddata[idx];

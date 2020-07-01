@@ -140,7 +140,7 @@ namespace nml
 		{
 			for (int j = 0; j < vX.cols; j++)
 			{
-				vX[i][j] = pow(X[i], deg - j);
+				vX(i, j) = pow(X(i), deg - j);
 			}
 		}
 
@@ -148,7 +148,7 @@ namespace nml
 		algmat vY(msize(deg + 1, 1));
 		for (int i = 0; i < vY.length(); i++)
 		{
-			vY[i] = Y[i];
+			vY(i) = Y(i);
 		}
 
 		// Calculate the coefficients
@@ -164,7 +164,7 @@ namespace nml
 		double y = 0.0;
 		for (int i = 0; i < C.length(); i++)
 		{
-			y += C[i] * pow(x, deg - i);
+			y += C(i) * pow(x, deg - i);
 		}
 
 		return y;
@@ -286,16 +286,16 @@ namespace nml
 		const int offset = X.length() - Y.length();
 		for (int i = 0; i < diff.length(); i++)
 		{
-			diff[i] = slope(X[i], Y[i], X[i + 1 + offset], Y[i + 1]);
+			diff(i) = slope(X(i), Y(i), X(i + 1 + offset), Y(i + 1));
 		}
 
 		// Check the index
 		if (idx == 0)
 		{
-			C[idx] = Y[idx];
+			C(idx) = Y(idx);
 			idx++;
 		}
-		C[idx] = diff[0];
+		C(idx) = diff(0);
 		idx++;
 
 		// Calculate the others
@@ -317,15 +317,15 @@ namespace nml
 		assert(C.empty() == false);
 
 		// Interpolate a value on the input X
-		double y = C[0];
+		double y = C(0);
 		for (int i = 1; i < C.length(); i++)
 		{
-			double mp = x - X[0];
+			double mp = x - X(0);
 			for (int j = 1; j < i; j++)
 			{
-				mp *= x - X[j];
+				mp *= x - X(j);
 			}
-			y += C[i] * mp;
+			y += C(i) * mp;
 		}
 
 		return y;
@@ -442,7 +442,7 @@ namespace nml
 		double y = 0.0;
 		for (int i = 0; i < deg + 1; i++)
 		{
-			y += calculate(x, i) * Y[i];
+			y += calculate(x, i) * Y(i);
 		}
 
 		return y;
@@ -456,7 +456,7 @@ namespace nml
 		{
 			if (i != idx)
 			{
-				weighted *= (x - X[i]) / (X[idx] - X[i]);
+				weighted *= (x - X(i)) / (X(idx) - X(i));
 			}
 		}
 

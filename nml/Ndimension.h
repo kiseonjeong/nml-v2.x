@@ -26,12 +26,12 @@ namespace nml
 		// Operators
 	public:
 		dim& operator=(const dim& obj);
-		const int operator[](const int idx) const;
+		const int& operator[](const int idx) const;
 
 		// Constructors & Destructor
 	public:
 		dim();
-		dim(const int N, ...);
+		explicit dim(const int N, ...);
 		dim(const dim& obj);
 		~dim();
 

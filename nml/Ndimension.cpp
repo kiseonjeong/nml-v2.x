@@ -81,10 +81,10 @@ namespace nml
 		return *this;
 	}
 
-	const int dim::operator[](const int idx) const
+	const int& dim::operator[](const int idx) const
 	{
 		// Get a dimension length
-		return get(idx);
+		return _d[idx];
 	}
 
 	void dim::create(const int N)

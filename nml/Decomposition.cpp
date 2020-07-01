@@ -3,7 +3,7 @@
 
 namespace nml
 {
-	algmat decomposition::operator[](const int idx) const
+	const algmat& decomposition::operator[](const int idx) const
 	{
 		// Check the index
 		assert(idx >= 0 && idx < 2);
@@ -169,15 +169,15 @@ namespace nml
 			// Find the row and column maximum index
 			int rowMaxIdx = i;
 			int colMaxIdx = i;
-			double maxVal = temp[rowMaxIdx][colMaxIdx];
+			double maxVal = temp(rowMaxIdx, colMaxIdx);
 			for (int j = i; j < temp.rows; j++)
 			{
 				// Check the pivot mode
 				if (mode == LU_PARTIAL_PIVOT)
 				{
-					if (temp[j][i] > maxVal)
+					if (temp(j, i) > maxVal)
 					{
-						maxVal = temp[j][i];
+						maxVal = temp(j, i);
 						rowMaxIdx = j;
 						colMaxIdx = i;
 					}
@@ -186,9 +186,9 @@ namespace nml
 				{
 					for (int k = i; k < temp.cols; k++)
 					{
-						if (temp[j][k] > maxVal)
+						if (temp(j, k) > maxVal)
 						{
-							maxVal = temp[j][k];
+							maxVal = temp(j, k);
 							rowMaxIdx = j;
 							colMaxIdx = k;
 						}
@@ -205,10 +205,10 @@ namespace nml
 			M.push_back(algmat::eyes(temp.rows));
 			for (int j = i + 1; j < temp.rows; j++)
 			{
-				M[M.size() - 1][j][i] = -temp[j][i] / temp[i][i];
+				M[M.size() - 1](j, i) = -temp(j, i) / temp(i, i);
 				for (int k = 0; k < temp.cols; k++)
 				{
-					temp[j][k] += temp[i][k] * M[M.size() - 1][j][i];
+					temp(j, k) += temp(i, k) * M[M.size() - 1](j, i);
 				}
 			}
 		}
@@ -363,7 +363,7 @@ namespace nml
 	{
 		// Create a reflection matrix
 		algmat result(msize(length, 1), 0.0);
-		result[0] = vecsize(mat);
+		result(0) = vecsize(mat);
 
 		return result;
 	}
@@ -371,7 +371,7 @@ namespace nml
 	const double QRD::vecsize(const algmat& mat) const
 	{
 		// Calculate a size of the input vector
-		return std::sqrt(algmat::sum(mat.mul(mat)));
+		return std::sqrt(algmat::sum(mat.mul(mat))(0));
 	}
 
 	const algmat QRD::extension(const algmat& mat, const int offset, const int length) const
@@ -380,13 +380,13 @@ namespace nml
 		algmat result(msize(length, length), 0.0);
 		for (int i = 0; i < offset; i++)
 		{
-			result[i][i] = 1.0;
+			result(i, i) = 1.0;
 		}
 		for (int i = 0; i < mat.rows; i++)
 		{
 			for (int j = 0; j < mat.cols; j++)
 			{
-				result[offset + i][offset + j] = mat[i][j];
+				result(offset + i, offset + j) = mat(i, j);
 			}
 		}
 
@@ -521,7 +521,7 @@ namespace nml
 		// Check the matrix is convergence or not
 		for (int i = 0; i < delta.length(); i++)
 		{
-			if (algmat::almost(delta[i], 0.0, 5) == false)
+			if (algmat::almost(delta(i), 0.0, 5) == false)
 			{
 				return false;
 			}
@@ -568,7 +568,7 @@ namespace nml
 		return *this;
 	}
 
-	algmat SVD::operator[](const int idx) const
+	const algmat& SVD::operator[](const int idx) const
 	{
 		// Check the index
 		assert(idx >= 0 && idx < 3);
@@ -636,12 +636,12 @@ namespace nml
 		int l = mat.rows;
 		for (int i = 0; i < k; i++)
 		{
-			if (S[i][i] < 0.0)
+			if (S(i, i) < 0.0)
 			{
-				S[i][i] = -S[i][i];
+				S(i, i) = -S(i, i);
 				for (int j = 0; j < l; j++)
 				{
-					U[j][i] = -U[j][i];
+					U(j, i) = -U(j, i);
 				}
 			}
 		}
@@ -663,9 +663,9 @@ namespace nml
 		{
 			for (int j = 0; j < E.cols; j++)
 			{
-				if (algmat::almost(E[i][j], 0.0, 5) == false)
+				if (algmat::almost(E(i, j), 0.0, 5) == false)
 				{
-					E[i][j] = 1.0 / E[i][j];
+					E(i, j) = 1.0 / E(i, j);
 				}
 			}
 		}

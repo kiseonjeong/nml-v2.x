@@ -33,12 +33,12 @@ namespace nml
 		assert(I.empty() == false);
 
 		// Check the left external region
-		if (x < I[0][0])
+		if (x < I(0, 0))
 		{
 			return 0;
 		}
 		// Check the right external region
-		else if (x >= I[numit - 1][1])
+		else if (x >= I(numit - 1, 1))
 		{
 			return numit - 1;
 		}
@@ -48,7 +48,7 @@ namespace nml
 			int idx = 0;
 			for (int i = 0; i < numit; i++)
 			{
-				if (x >= I[i][0] && x < I[i][1])
+				if (x >= I(i, 0) && x < I(i, 1))
 				{
 					idx = i;
 					break;
@@ -165,8 +165,8 @@ namespace nml
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
 		{
-			I[i][0] = X[i];
-			I[i][1] = X[i + 1];
+			I(i, 0) = X(i);
+			I(i, 1) = X(i + 1);
 		}
 
 		// Calculate the coefficients
@@ -179,8 +179,8 @@ namespace nml
 		C = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
 		{
-			C[i][0] = Y[i];
-			C[i][1] = slope(X[i], Y[i], X[i + 1], Y[i + 1]);
+			C(i, 0) = Y(i);
+			C(i, 1) = slope(X(i), Y(i), X(i + 1), Y(i + 1));
 		}
 	}
 
@@ -199,7 +199,7 @@ namespace nml
 		int i = getInterval(x);
 
 		// Interpolate a Value on the input X
-		double y = C[i][0] + C[i][1] * (x - X[i]);
+		double y = C(i, 0) + C(i, 1) * (x - X(i));
 
 		return y;
 	}
@@ -280,8 +280,8 @@ namespace nml
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
 		{
-			I[i][0] = X[i];
-			I[i][1] = X[i + 1];
+			I(i, 0) = X(i);
+			I(i, 1) = X(i + 1);
 		}
 
 		// Calculate the coefficients
@@ -294,32 +294,32 @@ namespace nml
 		algmat W(msize(numit, 1));
 		for (int i = 0; i < numit; i++)
 		{
-			W[i] = X[i + 1] - X[i];
+			W(i) = X(i + 1) - X(i);
 		}
 
 		// Calculate the slope
 		algmat S(msize(numit, 1));
 		for (int i = 0; i < numit; i++)
 		{
-			S[i] = (Y[i + 1] - Y[i]) / W[i];
+			S(i) = (Y(i + 1) - Y(i)) / W(i);
 		}
 
 		// Set the begin point conditions
 		C = algmat::zeros(msize(numit, 3));
-		C[0][2] = 0.0;
-		C[0][1] = S[0];
+		C(0, 2) = 0.0;
+		C(0, 1) = S(0);
 
 		// Calculate the 1st coefficients
 		for (int i = 0; i < numit; i++)
 		{
-			C[i][0] = Y[i];
+			C(i, 0) = Y(i);
 		}
 
 		// Calculate the 2nd and 3rd coefficients
 		for (int i = 1; i < numit; i++)
 		{
-			C[i][1] = C[i - 1][1] + 2.0 * C[i - 1][2] * W[i - 1];
-			C[i][2] = (S[i] - C[i][1]) / W[i];
+			C(i, 1) = C(i - 1, 1) + 2.0 * C(i - 1, 2) * W(i - 1);
+			C(i, 2) = (S(i) - C(i, 1)) / W(i);
 		}
 	}
 
@@ -332,7 +332,7 @@ namespace nml
 		int i = getInterval(x);
 
 		// Interpolate a Value on the input X
-		double y = C[i][0] + C[i][1] * (x - X[i]) + C[i][2] * pow(x - X[i], 2);
+		double y = C(i, 0) + C(i, 1) * (x - X(i)) + C(i, 2) * pow(x - X(i), 2);
 
 		return y;
 	}
@@ -678,8 +678,8 @@ namespace nml
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
 		{
-			I[i][0] = X[i];
-			I[i][1] = X[i + 1];
+			I(i, 0) = X(i);
+			I(i, 1) = X(i + 1);
 		}
 
 		// Calculate the coefficients
@@ -695,14 +695,14 @@ namespace nml
 		algmat W(msize(numit, 1));
 		for (int i = 0; i < numit; i++)
 		{
-			W[i] = X[i + 1] - X[i];
+			W(i) = X(i + 1) - X(i);
 		}
 
 		// Calculate the slope
 		algmat S(msize(numit, 1));
 		for (int i = 0; i < numit; i++)
 		{
-			S[i] = (Y[i + 1] - Y[i]) / W[i];
+			S(i) = (Y(i + 1) - Y(i)) / W(i);
 		}
 
 		// Get a condition matrix
@@ -723,25 +723,25 @@ namespace nml
 		C = algmat::zeros(msize(numit, 4));
 		for (int i = 0; i < numit; i++)
 		{
-			C[i][0] = Y[i];
+			C(i, 0) = Y(i);
 		}
 
 		// Calculate the 2nd coefficients
 		for (int i = 0; i < numit; i++)
 		{
-			C[i][1] = S[i] - W[i] / 3.0 * (2.0 * smat[i] + smat[i + 1]);
+			C(i, 1) = S(i) - W(i) / 3.0 * (2.0 * smat(i) + smat(i + 1));
 		}
 
 		// Calculate the 3rd coefficients
 		for (int i = 0; i < numit; i++)
 		{
-			C[i][2] = smat[i];
+			C(i, 2) = smat(i);
 		}
 
 		// Calculate the 4th coefficients
 		for (int i = 0; i < numit; i++)
 		{
-			C[i][3] = (smat[i + 1] - smat[i]) / (3.0 * W[i]);
+			C(i, 3) = (smat(i + 1) - smat(i)) / (3.0 * W(i));
 		}
 	}
 
@@ -751,45 +751,45 @@ namespace nml
 		algmat cond(msize(numpt, numpt), 0.0);
 		for (int i = 1; i < cond.rows - 1; i++)
 		{
-			cond[i][i - 1] = W[i - 1];
-			cond[i][i] = 2.0 * (W[i - 1] + W[i]);
-			cond[i][i + 1] = W[i];
+			cond(i, i - 1) = W(i - 1);
+			cond(i, i) = 2.0 * (W(i - 1) + W(i));
+			cond(i, i + 1) = W(i);
 		}
 
 		// Apply the end point conditions
 		switch (params->type)
 		{
 		case CUBIC_NATURAL:
-			cond[0][0] = 1.0;
-			cond[0][1] = 0.0;
-			cond[0][2] = 0.0;
-			cond[numpt - 1][numpt - 3] = 0.0;
-			cond[numpt - 1][numpt - 2] = 0.0;
-			cond[numpt - 1][numpt - 1] = 1.0;
+			cond(0, 0) = 1.0;
+			cond(0, 1) = 0.0;
+			cond(0, 2) = 0.0;
+			cond(numpt - 1, numpt - 3) = 0.0;
+			cond(numpt - 1, numpt - 2) = 0.0;
+			cond(numpt - 1, numpt - 1) = 1.0;
 			break;
 		case CUBIC_CLAMPED:
-			cond[0][0] = 2.0 * W[0];
-			cond[0][1] = W[0];
-			cond[0][2] = 0.0;
-			cond[numpt - 1][numpt - 3] = 0.0;
-			cond[numpt - 1][numpt - 2] = W[numit - 1];
-			cond[numpt - 1][numpt - 1] = 2.0 * W[numit - 1];
+			cond(0, 0) = 2.0 * W(0);
+			cond(0, 1) = W(0);
+			cond(0, 2) = 0.0;
+			cond(numpt - 1, numpt - 3) = 0.0;
+			cond(numpt - 1, numpt - 2) = W(numit - 1);
+			cond(numpt - 1, numpt - 1) = 2.0 * W(numit - 1);
 			break;
 		case CUBIC_NOTAKNOT:
-			cond[0][0] = -W[1];
-			cond[0][1] = W[0] + W[1];
-			cond[0][2] = -W[0];
-			cond[numpt - 1][numpt - 3] = -W[numit - 1];
-			cond[numpt - 1][numpt - 2] = W[numit - 1] + W[numit - 2];
-			cond[numpt - 1][numpt - 1] = -W[numit - 2];
+			cond(0, 0) = -W(1);
+			cond(0, 1) = W(0) + W(1);
+			cond(0, 2) = -W(0);
+			cond(numpt - 1, numpt - 3) = -W(numit - 1);
+			cond(numpt - 1, numpt - 2) = W(numit - 1) + W(numit - 2);
+			cond(numpt - 1, numpt - 1) = -W(numit - 2);
 			break;
 		default:
-			cond[0][0] = 1.0;
-			cond[0][1] = 0.0;
-			cond[0][2] = 0.0;
-			cond[numpt - 1][numpt - 3] = 0.0;
-			cond[numpt - 1][numpt - 2] = 0.0;
-			cond[numpt - 1][numpt - 1] = 1.0;
+			cond(0, 0) = 1.0;
+			cond(0, 1) = 0.0;
+			cond(0, 2) = 0.0;
+			cond(numpt - 1, numpt - 3) = 0.0;
+			cond(numpt - 1, numpt - 2) = 0.0;
+			cond(numpt - 1, numpt - 1) = 1.0;
 			break;
 		}
 
@@ -802,7 +802,7 @@ namespace nml
 		algmat res(msize(numpt, 1), 0.0);
 		for (int i = 1; i < res.length() - 1; i++)
 		{
-			res[i] = 3.0 * (S[i] - S[i - 1]);
+			res(i) = 3.0 * (S(i) - S(i - 1));
 		}
 
 		// Apply the end point conditions
@@ -810,16 +810,16 @@ namespace nml
 		{
 		case CUBIC_NATURAL:
 		case CUBIC_CLAMPED:
-			res[0] = 0.0;
-			res[numpt - 1] = 0.0;
+			res(0) = 0.0;
+			res(numpt - 1) = 0.0;
 			break;
 		case CUBIC_NOTAKNOT:
-			res[0] = S[0] - ((notaknot*)params)->alpha;
-			res[numpt - 1] = ((notaknot*)params)->beta - S[numit - 1];
+			res(0) = S(0) - ((notaknot*)params)->alpha;
+			res(numpt - 1) = ((notaknot*)params)->beta - S(numit - 1);
 			break;
 		default:
-			res[0] = 0.0;
-			res[numpt - 1] = 0.0;
+			res(0) = 0.0;
+			res(numpt - 1) = 0.0;
 			break;
 		}
 
@@ -835,7 +835,7 @@ namespace nml
 		int i = getInterval(x);
 
 		// Interpolate a value on the input X
-		double y = C[i][0] + C[i][1] * (x - X[i]) + C[i][2] * pow(x - X[i], 2) + C[i][3] * pow(x - X[i], 3);
+		double y = C(i, 0) + C(i, 1) * (x - X(i)) + C(i, 2) * pow(x - X(i), 2) + C(i, 3) * pow(x - X(i), 3);
 
 		return y;
 	}
@@ -919,15 +919,15 @@ namespace nml
 	{
 		// Calculate the begin point condition
 		algmat M(msize(numpt, 1), 0.0);
-		M[0] = slope(X[0], Y[0], X[1], Y[1]);
+		M(0) = slope(X(0), Y(0), X(1), Y(1));
 
 		// Calculate the end point condition
-		M[numpt - 1] = slope(X[numpt - 2], Y[numpt - 2], X[numpt - 1], Y[numpt - 1]);
+		M(numpt - 1) = slope(X(numpt - 2), Y(numpt - 2), X(numpt - 1), Y(numpt - 1));
 
 		// Calculate the others
 		for (int i = 1; i < numpt - 1; i++)
 		{
-			M[i] = (slope(X[i], Y[i], X[i + 1], Y[i + 1]) + slope(X[i], Y[i], X[i - 1], Y[i - 1])) / 2.0;
+			M(i) = (slope(X(i), Y(i), X(i + 1), Y(i + 1)) + slope(X(i), Y(i), X(i - 1), Y(i - 1))) / 2.0;
 		}
 
 		return M;
@@ -1014,15 +1014,15 @@ namespace nml
 	{
 		// Calculate the begin point condition
 		algmat M(msize(numpt, 1), 0.0);
-		M[0] = (1 - _c) * slope(X[0], Y[0], X[1], Y[1]);
+		M(0) = (1 - _c) * slope(X(0), Y(0), X(1), Y(1));
 
 		// Calculate the end point condition
-		M[numpt - 1] = (1 - _c) * slope(X[numpt - 2], Y[numpt - 2], X[numpt - 1], Y[numpt - 1]);
+		M(numpt - 1) = (1 - _c) * slope(X(numpt - 2), Y(numpt - 2), X(numpt - 1), Y(numpt - 1));
 
 		// Calculate the others
 		for (int i = 1; i < numpt - 1; i++)
 		{
-			M[i] = (1 - _c) * slope(X[i - 1], Y[i - 1], X[i + 1], Y[i + 1]);
+			M(i) = (1 - _c) * slope(X(i - 1), Y(i - 1), X(i + 1), Y(i + 1));
 		}
 
 		return M;
@@ -1074,15 +1074,15 @@ namespace nml
 	{
 		// Calculate the begin point condition
 		algmat M(msize(numpt, 1), 0.0);
-		M[0] = (1 - _c) * slope(X[0], Y[0], X[1], Y[1]);
+		M(0) = (1 - _c) * slope(X(0), Y(0), X(1), Y(1));
 
 		// Calculate the end point condition
-		M[numpt - 1] = (1 - _c) * slope(X[numpt - 2], Y[numpt - 2], X[numpt - 1], Y[numpt - 1]);
+		M(numpt - 1) = (1 - _c) * slope(X(numpt - 2), Y(numpt - 2), X(numpt - 1), Y(numpt - 1));
 
 		// Calculate the others
 		for (int i = 1; i < numpt - 1; i++)
 		{
-			M[i] = (1 - _c) * slope(X[i - 1], Y[i - 1], X[i + 1], Y[i + 1]);
+			M(i) = (1 - _c) * slope(X(i - 1), Y(i - 1), X(i + 1), Y(i + 1));
 		}
 
 		return M;
@@ -1236,8 +1236,8 @@ namespace nml
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
 		{
-			I[i][0] = X[i];
-			I[i][1] = X[i + 1];
+			I(i, 0) = X(i);
+			I(i, 1) = X(i + 1);
 		}
 
 		// Check the hermite spline condition
@@ -1262,7 +1262,7 @@ namespace nml
 		double h11 = basis(x, i, 3);
 
 		// Interpolate a value on the input X
-		double y = h00 * Y[i] + h10 * C[i] + h01 * Y[i + 1] + h11 * C[i + 1];
+		double y = h00 * Y(i) + h10 * C(i) + h01 * Y(i + 1) + h11 * C(i + 1);
 
 		return y;
 	}
@@ -1288,7 +1288,7 @@ namespace nml
 	const double hermite::tangent(const double x, const int idx) const
 	{
 		// Calculate a tangent for an arbitary interval
-		return (x - X[idx]) / (X[idx + 1] - X[idx]);
+		return (x - X(idx)) / (X(idx + 1) - X(idx));
 	}
 
 	akima::akima()
@@ -1395,8 +1395,8 @@ namespace nml
 		I = algmat::zeros(msize(numit, 2));
 		for (int i = 0; i < numit; i++)
 		{
-			I[i][0] = X[i];
-			I[i][1] = X[i + 1];
+			I(i, 0) = X(i);
+			I(i, 1) = X(i + 1);
 		}
 
 		// Calculate the coefficients
@@ -1411,9 +1411,9 @@ namespace nml
 		algmat S(msize(numit, 1));
 		for (int i = 0; i < numit; i++)
 		{
-			dX[i] = X[i + 1] - X[i];
-			dY[i] = Y[i + 1] - Y[i];
-			S[i] = dY[i] / dX[i];
+			dX(i) = X(i + 1) - X(i);
+			dY(i) = Y(i + 1) - Y(i);
+			S(i) = dY(i) / dX(i);
 		}
 
 		// Augment the slopes
@@ -1425,10 +1425,10 @@ namespace nml
 		{
 			double dL = derivative(A, i);
 			double dR = derivative(A, i + 1);
-			C[i][0] = Y[i];
-			C[i][1] = dL;
-			C[i][2] = (3.0 * A[i + 2] - dR - 2.0 * dL) / dX[i];
-			C[i][3] = -(2.0 * A[i + 2] - dR - dL) / pow(dX[i], 2.0);
+			C(i, 0) = Y(i);
+			C(i, 1) = dL;
+			C(i, 2) = (3.0 * A(i + 2) - dR - 2.0 * dL) / dX(i);
+			C(i, 3) = -(2.0 * A(i + 2) - dR - dL) / pow(dX(i), 2.0);
 		}
 	}
 
@@ -1436,13 +1436,13 @@ namespace nml
 	{
 		// Calculate the begin point condition
 		algmat B(msize(2, 1));
-		B[0] = 2.0 * (2.0 * S[0] - S[1]) - S[0];
-		B[1] = 2.0 * S[0] - S[1];
+		B(0) = 2.0 * (2.0 * S(0) - S(1)) - S(0);
+		B(1) = 2.0 * S(0) - S(1);
 
 		// Calculate the end point condition
 		algmat E(msize(2, 1));
-		E[0] = 2.0 * S[numit - 1] - S[numit - 2];
-		E[1] = 2.0 * (2.0 * S[numit - 1] - S[numit - 2]) - S[numit - 1];
+		E(0) = 2.0 * S(numit - 1) - S(numit - 2);
+		E(1) = 2.0 * (2.0 * S(numit - 1) - S(numit - 2)) - S(numit - 1);
 
 		// Augment the vectors
 		return B.append(S, 0).append(E, 0);
@@ -1451,18 +1451,18 @@ namespace nml
 	const double akima::derivative(const algmat& S, int idx) const
 	{
 		// Calculate a derivative value
-		double dL = abs(S[idx + 3] - S[idx + 2]);
-		double dR = abs(S[idx + 1] - S[idx]);
+		double dL = abs(S(idx + 3) - S(idx + 2));
+		double dR = abs(S(idx + 1) - S(idx));
 		double dS = dL + dR;
 		double wL = dL / dS;
 		double wR = dR / dS;
 		if (dL == 0.0 && dR == 0.0)
 		{
-			return (S[idx + 1] + S[idx + 2]) / 2.0;
+			return (S(idx + 1) + S(idx + 2)) / 2.0;
 		}
 		else
 		{
-			return wL * S[idx + 1] + wR * S[idx + 2];
+			return wL * S(idx + 1) + wR * S(idx + 2);
 		}
 	}
 
@@ -1475,7 +1475,7 @@ namespace nml
 		int i = getInterval(x);
 
 		// Interpolate a value on the input X
-		double y = C[i][0] + C[i][1] * (x - X[i]) + C[i][2] * pow(x - X[i], 2) + C[i][3] * pow(x - X[i], 3);
+		double y = C(i, 0) + C(i, 1) * (x - X(i)) + C(i, 2) * pow(x - X(i), 2) + C(i, 3) * pow(x - X(i), 3);
 
 		return y;
 	}
