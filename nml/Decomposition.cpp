@@ -82,7 +82,7 @@ namespace nml
 		return *this;
 	}
 
-	void LUD::setObject()
+	inline void LUD::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -94,7 +94,7 @@ namespace nml
 		D.clear();
 	}
 
-	void LUD::copyObject(const object& obj)
+	inline void LUD::copyObject(const object& obj)
 	{
 		// Do down casting
 		LUD* _obj = (LUD*)&obj;
@@ -108,7 +108,7 @@ namespace nml
 		D = _obj->D;
 	}
 
-	void LUD::clearObject()
+	inline void LUD::clearObject()
 	{
 		// Clear the memories
 		P.clear();
@@ -252,7 +252,7 @@ namespace nml
 		return *this;
 	}
 
-	void QRD::setObject()
+	inline void QRD::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -262,7 +262,7 @@ namespace nml
 		D.clear();
 	}
 
-	void QRD::copyObject(const object& obj)
+	inline void QRD::copyObject(const object& obj)
 	{
 		// Do down casting
 		QRD* _obj = (QRD*)&obj;
@@ -272,7 +272,7 @@ namespace nml
 		D = _obj->D;
 	}
 
-	void QRD::clearObject()
+	inline void QRD::clearObject()
 	{
 		// Clear the memories
 		T.clear();
@@ -431,7 +431,7 @@ namespace nml
 		return *this;
 	}
 
-	void EVD::setObject()
+	inline void EVD::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -440,7 +440,7 @@ namespace nml
 		D.clear();
 	}
 
-	void EVD::copyObject(const object& obj)
+	inline void EVD::copyObject(const object& obj)
 	{
 		// Do down casting
 		EVD* _obj = (EVD*)&obj;
@@ -449,7 +449,7 @@ namespace nml
 		D = _obj->D;
 	}
 
-	void EVD::clearObject()
+	inline void EVD::clearObject()
 	{
 		// Clear the memories
 		D.clear();
@@ -576,7 +576,7 @@ namespace nml
 		return D[idx];
 	}
 
-	void SVD::setObject()
+	inline void SVD::setObject()
 	{
 		// Set the parameters
 		setType(*this);

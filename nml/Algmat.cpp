@@ -105,7 +105,10 @@ namespace nml
 		ndmatrix<2>::copyObject(obj);
 
 		// Copy the parameters
-		sz.set(obj.dm[0], obj.dm[1]);
+		if (obj.empty() == false)
+		{
+			sz.set(obj.dm[0], obj.dm[1]);
+		}
 	}
 
 	algmat algmat::to_algmat(const vector<double>& vdata)
@@ -1058,20 +1061,20 @@ namespace nml
 		{
 			for (int j = 0; j < result.cols; j++)
 			{
-				result(i, j) = (std::pow(-1.0, i + j) * expansion(minor(i, 0).minor(j, 1)))(0);
+				result(i, j) = std::pow(-1.0, i + j) * expansion(minor(i, 0).minor(j, 1));
 			}
 		}
 
 		return result;
 	}
 
-	const algmat algmat::expansion(const algmat& mat) const
+	const double algmat::expansion(const algmat& mat) const
 	{
 		// Check the size
-		algmat result(msize(1), 0.0);
+		double result = 0.0;
 		if (mat.rows == 2 && mat.cols == 2)
 		{
-			result(0, 0) = mat(0, 0) * mat(1, 1) - mat(0, 1) * mat(1, 0);
+			result = mat(0, 0) * mat(1, 1) - mat(0, 1) * mat(1, 0);
 		}
 		else
 		{
@@ -1147,14 +1150,14 @@ namespace nml
 		return result;
 	}
 
-	algmat algmat::det() const
+	const double algmat::det() const
 	{
 		// Check matrix status
 		assert(empty() == false);
 		assert(isSquared() == true);
 
 		// Get an inverse matrix
-		algmat result(msize(1), 0.0);
+		double result = 0.0;
 		if (rows == 2 && cols == 2)
 		{
 			result = expansion(*this);
@@ -1165,13 +1168,13 @@ namespace nml
 			algmat c(msize(1, cols));
 			for (int i = 0; i < cols; i++)
 			{
-				c(0, i) = (std::pow(-1.0, i) * expansion(minor(0, 0).minor(i, 1)))(0);
+				c(0, i) = std::pow(-1.0, i) * expansion(minor(0, 0).minor(i, 1));
 			}
 
 			// Calculate a determinant
 			for (int i = 0; i < cols; i++)
 			{
-				result(0, 0) += c(0, i) * (*this)(0, i);
+				result += c(0, i) * (*this)(0, i);
 			}
 		}
 

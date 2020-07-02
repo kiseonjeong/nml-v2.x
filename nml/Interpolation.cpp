@@ -71,7 +71,7 @@ namespace nml
 		return *this;
 	}
 
-	void vandermonde::setObject()
+	inline void vandermonde::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -83,7 +83,7 @@ namespace nml
 		C.release();
 	}
 
-	void vandermonde::copyObject(const object& obj)
+	inline void vandermonde::copyObject(const object& obj)
 	{
 		// Do down casting
 		vandermonde* _obj = (vandermonde*)&obj;
@@ -97,7 +97,7 @@ namespace nml
 		C = _obj->C;
 	}
 
-	void vandermonde::clearObject()
+	inline void vandermonde::clearObject()
 	{
 		// Clear the memories
 		X.release();
@@ -214,7 +214,7 @@ namespace nml
 		return *this;
 	}
 
-	void newton::setObject()
+	inline void newton::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -227,7 +227,7 @@ namespace nml
 		C.release();
 	}
 
-	void newton::copyObject(const object& obj)
+	inline void newton::copyObject(const object& obj)
 	{
 		// Do down casting
 		newton* _obj = (newton*)&obj;
@@ -242,7 +242,7 @@ namespace nml
 		C = _obj->C;
 	}
 
-	void newton::clearObject()
+	inline void newton::clearObject()
 	{
 		// Clear the memories
 		X.release();
@@ -375,7 +375,7 @@ namespace nml
 		return *this;
 	}
 
-	void lagrange::setObject()
+	inline void lagrange::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -387,7 +387,7 @@ namespace nml
 		C.release();
 	}
 
-	void lagrange::copyObject(const object& obj)
+	inline void lagrange::copyObject(const object& obj)
 	{
 		// Do down casting
 		lagrange* _obj = (lagrange*)&obj;
@@ -401,7 +401,7 @@ namespace nml
 		C = _obj->C;
 	}
 
-	void lagrange::clearObject()
+	inline void lagrange::clearObject()
 	{
 		// Clear the memories
 		X.release();

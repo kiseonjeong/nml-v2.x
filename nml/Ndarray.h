@@ -12,15 +12,15 @@ namespace nml
 
 		// Functions
 	public:
-		void create(const dim& di);			// Create an array
+		inline void create(const dim& di);			// Create an array
 		void release();			// Release an array
 		void set(const var& val);			// Set a value
-		const int length() const;			// Get a total length
+		inline const int length() const;			// Get a total length
 		var* ptr() const;			// Get a data pointer
 		bool empty() const;			// Check an array
 		void cout() const;			// Console out for an array
 		void _cout(const int nspace = 0) const;			// Console out for an array
-		void subdim(const dim& di, var* tdata);			// Set sub-dimensional array
+		void subdim(const dim& di, var* tdata, const int didx);			// Set sub-dimensional array
 		void subdata(var* ddata, const int tidx);			// Set sub-dimensional data
 
 		// Operators
@@ -53,9 +53,9 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		virtual void copyObject(const ndarray& obj);			// Copy the object
-		virtual void clearObject();			// Clear the object
+		virtual inline void setObject();			// Set an object
+		virtual inline void copyObject(const ndarray& obj);			// Copy the object
+		virtual inline void clearObject();			// Clear the object
 		void widthStep();			// Calculate a width step
 
 	};
@@ -69,15 +69,15 @@ namespace nml
 
 		// Functions
 	public:
-		void create(const dim& di);			// Create an array
+		inline void create(const dim& di);			// Create an array
 		void release();			// Release an array
 		void set(const var val);			// Set a value
-		const int length() const;			// Get a total length
+		inline const int length() const;			// Get a total length
 		var* ptr() const;			// Get a data pointer
 		bool empty() const;			// Check the array
 		void cout() const;			// Console out for an array
 		void _cout(const int nspace = 0) const;			// Console out for an array
-		void subdim(const dim& di, var* tdata);			// Set sub-dimensional array
+		void subdim(const dim& di, var* tdata, const int didx);			// Set sub-dimensional array
 		void subdata(var* ddata, const int tidx);			// Set sub-dimensional data
 
 		// Operators
@@ -109,9 +109,9 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		virtual void copyObject(const ndarray& obj);			// Copy the object
-		virtual void clearObject();			// Clear the object
+		virtual inline void setObject();			// Set an object
+		virtual inline void copyObject(const ndarray& obj);			// Copy the object
+		virtual inline void clearObject();			// Clear the object
 		void widthStep();			// Calculate a width step
 
 	};

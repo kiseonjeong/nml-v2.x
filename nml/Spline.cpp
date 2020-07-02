@@ -103,7 +103,7 @@ namespace nml
 		return *this;
 	}
 
-	void spline1d::setObject()
+	inline void spline1d::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -116,7 +116,7 @@ namespace nml
 		C.release();
 	}
 
-	void spline1d::copyObject(const object& obj)
+	inline void spline1d::copyObject(const object& obj)
 	{
 		// Do down casting
 		spline1d* _obj = (spline1d*)&obj;
@@ -131,7 +131,7 @@ namespace nml
 		C = _obj->C;
 	}
 
-	void spline1d::clearObject()
+	inline void spline1d::clearObject()
 	{
 		// Clear the memories
 		X.release();
@@ -248,7 +248,7 @@ namespace nml
 		return *this;
 	}
 
-	void spline2d::setObject()
+	inline void spline2d::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -349,7 +349,7 @@ namespace nml
 		clearObject();
 	}
 
-	void cubic_params::setObject()
+	inline void cubic_params::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -405,7 +405,7 @@ namespace nml
 		return *this;
 	}
 
-	void natural::setObject()
+	inline void natural::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -447,7 +447,7 @@ namespace nml
 		return *this;
 	}
 
-	void clamped::setObject()
+	inline void clamped::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -498,7 +498,7 @@ namespace nml
 		return *this;
 	}
 
-	void notaknot::setObject()
+	inline void notaknot::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -507,7 +507,7 @@ namespace nml
 		_beta = 0.0;
 	}
 
-	void notaknot::copyObject(const object& obj)
+	inline void notaknot::copyObject(const object& obj)
 	{
 		// Do down casting
 		notaknot* _obj = (notaknot*)&obj;
@@ -518,9 +518,9 @@ namespace nml
 		_beta = _obj->_beta;
 	}
 
-	void notaknot::clearObject()
+	inline void notaknot::clearObject()
 	{
-
+		// Do nothing
 	}
 
 	void notaknot::set(const double alpha, const double beta)
@@ -586,7 +586,7 @@ namespace nml
 		return *this;
 	}
 
-	void spline3d::setObject()
+	inline void spline3d::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -600,7 +600,7 @@ namespace nml
 		C.release();
 	}
 
-	void spline3d::copyObject(const object& obj)
+	inline void spline3d::copyObject(const object& obj)
 	{
 		// Do downcasting
 		spline3d* _obj = (spline3d*)&obj;
@@ -616,7 +616,7 @@ namespace nml
 		C = _obj->C;
 	}
 
-	void spline3d::clearObject()
+	inline void spline3d::clearObject()
 	{
 		// Clear the memories
 		if (params != nullptr)
@@ -852,7 +852,7 @@ namespace nml
 		clearObject();
 	}
 
-	void hermite_params::setObject()
+	inline void hermite_params::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -908,7 +908,7 @@ namespace nml
 		return *this;
 	}
 
-	void finitediff::setObject()
+	inline void finitediff::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -983,7 +983,7 @@ namespace nml
 		return *this;
 	}
 
-	void cardinal::setObject()
+	inline void cardinal::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -991,7 +991,7 @@ namespace nml
 		_c = 0.0;
 	}
 
-	void cardinal::copyObject(const object& obj)
+	inline void cardinal::copyObject(const object& obj)
 	{
 		// Do down casting
 		cardinal* _obj = (cardinal*)&obj;
@@ -1063,7 +1063,7 @@ namespace nml
 		return *this;
 	}
 
-	void catmullrom::setObject()
+	inline void catmullrom::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -1144,7 +1144,7 @@ namespace nml
 		return *this;
 	}
 
-	void hermite::setObject()
+	inline void hermite::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -1158,7 +1158,7 @@ namespace nml
 		C.release();
 	}
 
-	void hermite::copyObject(const object& obj)
+	inline void hermite::copyObject(const object& obj)
 	{
 		// Do down casting
 		hermite* _obj = (hermite*)&obj;
@@ -1174,7 +1174,7 @@ namespace nml
 		C = _obj->C;
 	}
 
-	void hermite::clearObject()
+	inline void hermite::clearObject()
 	{
 		// Clear the memories
 		if (params != nullptr)
@@ -1335,7 +1335,7 @@ namespace nml
 		return *this;
 	}
 
-	void akima::setObject()
+	inline void akima::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -1346,7 +1346,7 @@ namespace nml
 		clearObject();
 	}
 
-	void akima::copyObject(const object& obj)
+	inline void akima::copyObject(const object& obj)
 	{
 		// Do down casting
 		akima* _obj = (akima*)&obj;
@@ -1361,7 +1361,7 @@ namespace nml
 		C = _obj->C;
 	}
 
-	void akima::clearObject()
+	inline void akima::clearObject()
 	{
 		// Clear the memories
 		X.release();

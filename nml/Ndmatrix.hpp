@@ -163,7 +163,7 @@ namespace nml
 		return *this;
 	}
 
-	template<const unsigned int N> const dim& ndmatrix<N>::shape() const
+	template<const unsigned int N> inline const dim& ndmatrix<N>::shape() const
 	{
 		// Get dimension information
 		return _dm;

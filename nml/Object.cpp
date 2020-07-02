@@ -38,24 +38,24 @@ namespace nml
 		return *this;
 	}
 
-	void object::setObject()
+	inline void object::setObject()
 	{
 		// Set the parameters
 		setType(*this);
 	}
 
-	void object::copyObject(const object& obj)
+	inline void object::copyObject(const object& obj)
 	{
 		// Copy the parameters
 		objType = obj.objType;
 	}
 
-	void object::clearObject()
+	inline void object::clearObject()
 	{
 		// Do nothing
 	}
 
-	const string object::getType() const
+	inline const string object::getType() const
 	{
 		// Get the type
 		return objType;

@@ -44,7 +44,7 @@ namespace nml
 		algmat dot(const algmat& mat) const;			// Get a dot product matrix
 		algmat cof() const;			// Get a cofactor matrix
 		algmat inv() const;			// Get an inverse matrix
-		algmat det() const;			// Get a determinant value
+		const double det() const;			// Get a determinant value
 
 		// Operators
 	public:
@@ -90,7 +90,7 @@ namespace nml
 		static const algmat vsum(const algmat& mat);			// Vertically, calculate sum values
 		static const algmat hsum(const algmat& mat);			// Horizontally, calculate sum values
 		const bool isSquared() const;			// Check a squared matrix or not
-		const algmat expansion(const algmat& mat) const;			// Expand a matrix for cofactor matrix
+		const double expansion(const algmat& mat) const;			// Expand a matrix for cofactor matrix
 
 	};
 }

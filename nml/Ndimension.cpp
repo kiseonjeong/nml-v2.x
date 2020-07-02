@@ -6,15 +6,14 @@ namespace nml
 	dim::dim() : d(_d), N(_N)
 	{
 		// Initialize information
-		_d.clear();
 		_N = 0;
 		len = 0;
 	}
 
 	dim::dim(const int N, ...) : d(_d), N(_N)
 	{
-		// Clear the old information
-		_d.clear();
+		// Create the new information
+		_d.create(N);
 
 		// Set dimension information
 		_N = N;
@@ -24,13 +23,13 @@ namespace nml
 		va_start(vl, N);
 		for (int i = 0; i < N; i++)
 		{
-			_d.push_back(va_arg(vl, int));
+			_d[i] = va_arg(vl, int);
 		}
 		va_end(vl);
 
 		// Calculate a total length
 		len = 1;
-		for (int i = 0; i < (int)_d.size(); i++)
+		for (int i = 0; i < _d.size; i++)
 		{
 			len *= _d[i];
 		}
@@ -39,18 +38,7 @@ namespace nml
 	dim::dim(const dim& obj) : d(_d), N(_N)
 	{
 		// Copy dimension information
-		_d = vector<int>(2);
-		if (_d.empty() == true || _d.size() != obj._d.size())
-		{
-			_d = obj._d;
-		}
-		else
-		{
-			for (int i = 0; i < 2; i++)
-			{
-				_d[i] = obj._d[i];
-			}
-		}
+		_d = obj._d;
 		_N = obj._N;
 		len = obj.len;
 	}
@@ -58,23 +46,13 @@ namespace nml
 	dim::~dim()
 	{
 		// Clear the dimension information
-		_d.clear();
+		_d.release();
 	}
 
 	dim& dim::operator=(const dim& obj)
 	{
 		// Copy from the input object
-		if (_d.empty() == true || _d.size() != obj._d.size())
-		{
-			_d = obj._d;
-		}
-		else
-		{
-			for (int i = 0; i < _N; i++)
-			{
-				_d[i] = obj._d[i];
-			}
-		}
+		_d = obj._d;
 		_N = obj._N;
 		len = obj.len;
 
@@ -83,26 +61,26 @@ namespace nml
 
 	const int& dim::operator[](const int idx) const
 	{
+		// Check the index
+		assert(idx >= 0 && idx < _d.size);
+
 		// Get a dimension length
 		return _d[idx];
 	}
 
 	void dim::create(const int N)
 	{
-		// Clear the old information
-		_d.clear();
-
 		// Set dimension information
 		_N = N;
 
 		// Create dimension information
-		_d = vector<int>(N);
+		_d.create(N);
 	}
 
 	void dim::release()
 	{
 		// Initialize information
-		_d.clear();
+		_d.release();
 		_N = 0;
 	}
 
@@ -115,7 +93,7 @@ namespace nml
 	const int dim::get(const int idx) const
 	{
 		// Check the index
-		assert(idx >= 0 && idx < (int)_d.size());
+		assert(idx >= 0 && idx < _d.size);
 
 		// Get a dimension length
 		return _d[idx];
@@ -124,14 +102,14 @@ namespace nml
 	void dim::set(const int idx, const int len)
 	{
 		// Check the index
-		assert(idx >= 0 && idx < (int)_d.size());
+		assert(idx >= 0 && idx < _d.size);
 
 		// Set a dimension length
 		_d[idx] = len;
 
 		// Update the total length
 		this->len = 1;
-		for (int i = 0; i < (int)_d.size(); i++)
+		for (int i = 0; i < _d.size; i++)
 		{
 			this->len *= _d[i];
 		}
@@ -139,8 +117,8 @@ namespace nml
 
 	void dim::reset(const int N, ...)
 	{
-		// Clear the old information
-		_d.clear();
+		// Create the new information
+		_d.create(N);
 
 		// Set dimension information
 		_N = N;
@@ -150,13 +128,13 @@ namespace nml
 		va_start(vl, N);
 		for (int i = 0; i < N; i++)
 		{
-			_d.push_back(va_arg(vl, int));
+			_d[i] = va_arg(vl, int);
 		}
 		va_end(vl);
 
 		// Calculate a total length
 		len = 1;
-		for (int i = 0; i < (int)_d.size(); i++)
+		for (int i = 0; i < _d.size; i++)
 		{
 			len *= _d[i];
 		}
