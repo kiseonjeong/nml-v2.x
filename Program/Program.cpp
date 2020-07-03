@@ -12,6 +12,9 @@ void test_spline();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	ndmatrix<3> t0(dim(3, 3, 4, 4), 0);
+	t0[0] += 10;
+	t0.cout();
 	test_matrix();
 
 	return 0;

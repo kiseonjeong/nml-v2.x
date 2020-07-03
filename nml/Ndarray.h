@@ -31,8 +31,6 @@ namespace nml
 		ndarray<var, N - 1>& operator[](const int idx);			// sub-dimensional array access operator (write)
 		const var& operator()(const int idx) const;			// data access operator (read)
 		var& operator()(const int idx);			// data access operator (write)
-		const var& operator()(const int idx0, const int idx1, ...) const;			// data access operator (read)
-		var& operator()(const int idx0, const int idx1, ...);			// data access operator (write)
 		ndarray<double, N> operator+(const ndarray<double, N>& mat);
 		ndarray<double, N> operator+(const double val);
 		friend ndarray<double, N> operator+(const double val, ndarray<double, N>& mat)

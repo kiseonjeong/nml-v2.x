@@ -101,44 +101,6 @@ namespace nml
 		return ddata[idx];
 	}
 
-	template<typename var, const unsigned int N> const var& ndarray<var, N>::operator()(const int idx0, const int idx1, ...) const
-	{
-		// Parse dimension values
-		va_list vl;
-		va_start(vl, idx1);
-		int addr = lut[0][idx0] + lut[1][idx1];
-		for (int i = 2; i < N; i++)
-		{
-			addr += lut[i][va_arg(vl, int)];
-		}
-		va_end(vl);
-
-		// Check an index
-		assert(addr >= 0 && addr < tlen);
-
-		// Get a value
-		return ddata[addr];
-	}
-
-	template<typename var, const unsigned int N> var& ndarray<var, N>::operator()(const int idx0, const int idx1, ...)
-	{
-		// Parse dimension values
-		va_list vl;
-		va_start(vl, idx1);
-		int addr = lut[0][idx0] + lut[1][idx1];
-		for (int i = 2; i < N; i++)
-		{
-			addr += lut[i][va_arg(vl, int)];
-		}
-		va_end(vl);
-
-		// Check an index
-		assert(addr >= 0 && addr < tlen);
-
-		// Get a value
-		return ddata[addr];
-	}
-
 	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator+(const ndarray<double, N>& mat)
 	{
 		// Check a status
@@ -393,19 +355,6 @@ namespace nml
 
 		// Set sub dimensional data
 		sub.subdim(sdi, tdata, didx);
-
-		// Set the LUT information
-		/*
-		lut.create(_dm.N);
-		for (int i = 0; i < _dm.N; i++)
-		{
-			lut[i].create(_dm[i]);
-			for (int j = 0; j < _dm[i]; j++)
-			{
-				lut[i][j] = j * steps[i];
-			}
-		}
-		*/
 	}
 
 	template<typename var, const unsigned int N> inline void ndarray<var, N>::create(const dim& di, const var& val)
@@ -762,7 +711,7 @@ namespace nml
 	template<typename var> void ndarray<var, 1>::set(const var val)
 	{
 		// Check the dimension information
-		assert(_dm.d.size() > 0);
+		assert(_dm.d.size > 0);
 
 		// Set a value on the data
 		for (int i = 0; i < tlen; i++)
