@@ -12,7 +12,7 @@ void test_spline();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	test_decomposition();
+	test_matrix();
 
 	return 0;
 }
@@ -20,16 +20,17 @@ int _tmain(int argc, _TCHAR* argv[])
 void test_matrix()
 {
 	clock_t t;
-// 	algmat m0(msize(4, 4));
-// 	algmat m1(msize(4, 4));
+	algmat m0(msize(4, 4));
+	algmat m1(msize(4, 4));
 	t = clock();
 	for (int i = 0; i < 100000; i++)
 	{
 // 		for (int j = 0; j < m0.length(); j++)
 // 		{
-// 			m0(0) = 3.14;
+// 			m0(0, 0) = 3.14;
+// 			m0[0][0] = 3.14;
 // 		}
-// 		algmat m2(m0);
+		algmat m2(m0);
 	}
 	t = clock() - t;
 	cout << (float)t << "ms" << endl;
