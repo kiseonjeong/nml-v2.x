@@ -7,6 +7,7 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Set size information
 		sz.set(0, 0);
@@ -16,6 +17,7 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Set dimension information
 		this->sz = sz;
@@ -29,6 +31,7 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Set dimension information
 		this->sz = sz;
@@ -45,6 +48,7 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Copy the object
 		copyObject(obj);
@@ -54,6 +58,7 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Copy the object
 		copyObject(obj);
@@ -61,6 +66,10 @@ namespace nml
 
 	algmat::algmat(const algmat& obj) : rows(sz.d0), cols(sz.d1)
 	{
+		// Set the number type flag
+		nflag = true;
+		cflag = false;
+
 		// Clone the object
 		*this = obj;
 	}

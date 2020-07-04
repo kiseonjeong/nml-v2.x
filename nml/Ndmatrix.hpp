@@ -4,12 +4,14 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 	}
 
 	template<const unsigned int N> ndmatrix<N>::ndmatrix(const dim& di)
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Check a dimension value
 		assert(di.N == N);
@@ -22,6 +24,7 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Check a dimension value
 		assert(di.N == N);
@@ -37,6 +40,7 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Copy the object
 		copyObject(obj);
@@ -46,6 +50,7 @@ namespace nml
 	{
 		// Set the number type flag
 		nflag = true;
+		cflag = false;
 
 		// Clone the object
 		*this = obj;

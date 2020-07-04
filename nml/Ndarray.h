@@ -36,6 +36,13 @@ namespace nml
 		ndarray<var, N> operator+(const double val);
 		friend ndarray<var, N> operator+(const double val, ndarray<var, N>& mat)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -43,16 +50,28 @@ namespace nml
 				assert(mat.empty() == false);
 
 				// Calculate an addition matrix
+				ndarray<var, N> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
-					mat(i) = val + mat(i);
+					result(i) = val + mat(i);
 				}
-			}
 
-			return mat;
+				return result;
+			}
+			else
+			{
+				return *this;
+			}
 		}
 		friend ndarray<var, N>& operator+=(ndarray<var, N>& mat, const var val)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -72,6 +91,13 @@ namespace nml
 		ndarray<var, N> operator-(const double val);
 		friend ndarray<var, N> operator-(const double val, ndarray<var, N>& mat)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -79,16 +105,28 @@ namespace nml
 				assert(mat.empty() == false);
 
 				// Calculate an addition matrix
+				ndarray<var, N> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
-					mat(i) = val - mat(i);
+					result(i) = val - mat(i);
 				}
-			}
 
-			return mat;
+				return result;
+			}
+			else
+			{
+				return *this;
+			}
 		}
 		friend ndarray<var, N>& operator-=(ndarray<var, N>& mat, const double val)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -108,6 +146,13 @@ namespace nml
 		ndarray<var, N> operator*(const double val);
 		friend ndarray<var, N> operator*(const double val, ndarray<var, N>& mat)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -115,16 +160,28 @@ namespace nml
 				assert(mat.empty() == false);
 
 				// Calculate an addition matrix
+				ndarray<var, N> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
-					mat(i) = val * mat(i);
+					result(i) = val * mat(i);
 				}
-			}
 
-			return mat;
+				return result;
+			}
+			else
+			{
+				return *this;
+			}
 		}
 		friend ndarray<var, N>& operator*=(ndarray<var, N>& mat, const double val)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -144,6 +201,13 @@ namespace nml
 		ndarray<var, N> operator/(const double val);
 		friend ndarray<var, N> operator/(const double val, ndarray<var, N>& mat)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -155,16 +219,28 @@ namespace nml
 				}
 
 				// Calculate an addition matrix
+				ndarray<var, N> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
-					mat(i) = val / mat(i);
+					result(i) = val / mat(i);
 				}
-			}
 
-			return mat;
+				return result;
+			}
+			else
+			{
+				return *this;
+			}
 		}
 		friend ndarray<var, N>& operator/=(ndarray<var, N>& mat, const double val)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -202,6 +278,7 @@ namespace nml
 		int tlen;			// total length
 		var* tdata;			// total data
 		bool nflag;			// number type flag
+		bool cflag;			// type check flag
 
 		// Functions
 	protected:
@@ -249,6 +326,13 @@ namespace nml
 		ndarray<var, 1> operator+(const double val);
 		friend ndarray<var, 1> operator+(const double val, ndarray<var, 1>& mat)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -256,16 +340,28 @@ namespace nml
 				assert(mat.empty() == false);
 
 				// Calculate an addition matrix
+				ndarray<var, N> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
-					mat(i) = val + mat(i);
+					result(i) = val + mat(i);
 				}
-			}
 
-			return mat;
+				return result;
+			}
+			else
+			{
+				return *this;
+			}
 		}
 		friend ndarray<var, 1>& operator+=(ndarray<var, 1>& mat, const var val)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -285,30 +381,49 @@ namespace nml
 		ndarray<var, 1> operator-(const double val);
 		friend ndarray<var, 1> operator-(const double val, ndarray<var, 1>& mat)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
 				// Check a status
 				assert(mat.empty() == false);
 
-				// Calculate an addition matrix
+				// Calculate a subtraction matrix
+				ndarray<var, N> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
-					mat(i) = val - mat(i);
+					result(i) = val - mat(i);
 				}
-			}
 
-			return mat;
+				return result;
+			}
+			else
+			{
+				return *this;
+			}
 		}
 		friend ndarray<var, 1>& operator-=(ndarray<var, 1>& mat, const double val)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
 				// Check a status
 				assert(mat.empty() == false);
 
-				// Calculate an addition matrix
+				// Calculate a subtraction matrix
 				for (int i = 0; i < mat.tlen; i++)
 				{
 					mat(i) = mat(i) - val;
@@ -321,30 +436,49 @@ namespace nml
 		ndarray<var, 1> operator*(const double val);
 		friend ndarray<var, 1> operator*(const double val, ndarray<var, 1>& mat)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
 				// Check a status
 				assert(mat.empty() == false);
 
-				// Calculate an addition matrix
+				// Calculate a multiplication matrix
+				ndarray<var, N> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
-					mat(i) = val * mat(i);
+					result(i) = val * mat(i);
 				}
-			}
 
-			return mat;
+				return result;
+			}
+			else
+			{
+				return *this;
+			}
 		}
 		friend ndarray<var, 1>& operator*=(ndarray<var, 1>& mat, const double val)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
 				// Check a status
 				assert(mat.empty() == false);
 
-				// Calculate an addition matrix
+				// Calculate a multiplication matrix
 				for (int i = 0; i < mat.tlen; i++)
 				{
 					mat(i) = mat(i) * val;
@@ -357,6 +491,13 @@ namespace nml
 		ndarray<var, 1> operator/(const double val);
 		friend ndarray<var, 1> operator/(const double val, ndarray<var, 1>& mat)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -367,17 +508,29 @@ namespace nml
 					assert(mat(i) != 0.0);
 				}
 
-				// Calculate an addition matrix
+				// Calculate a division matrix
+				ndarray<var, N> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
-					mat(i) = val / mat(i);
+					result(i) = val / mat(i);
 				}
-			}
 
-			return mat;
+				return result;
+			}
+			else
+			{
+				return *this;
+			}
 		}
 		friend ndarray<var, 1>& operator/=(ndarray<var, 1>& mat, const double val)
 		{
+			// Check the check flag
+			if (mat.cflag == true)
+			{
+				mat.setArrayType();
+				mat.cflag = false;
+			}
+
 			// Check the type flag
 			if (mat.nflag == true)
 			{
@@ -385,7 +538,7 @@ namespace nml
 				assert(mat.empty() == false);
 				assert(val != 0.0);
 
-				// Calculate an addition matrix
+				// Calculate a division matrix
 				for (int i = 0; i < mat.length(); i++)
 				{
 					mat(i) = mat(i) / val;
@@ -414,6 +567,7 @@ namespace nml
 		int tlen;			// total length
 		var* tdata;			// total data
 		bool nflag;			// number type flag
+		bool cflag;			// type check flag
 
 		// Functions
 	protected:

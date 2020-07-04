@@ -109,6 +109,13 @@ namespace nml
 
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator+(const ndarray<var, N>& mat)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -136,6 +143,13 @@ namespace nml
 
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator+(const double val)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -159,6 +173,13 @@ namespace nml
 
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator-(const ndarray<var, N>& mat)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -186,6 +207,13 @@ namespace nml
 
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator-(const double val)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -209,6 +237,13 @@ namespace nml
 
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator*(const ndarray<var, N>& mat)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -236,6 +271,13 @@ namespace nml
 
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator*(const double val)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -259,6 +301,13 @@ namespace nml
 
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator/(const ndarray<var, N>& mat)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -290,6 +339,13 @@ namespace nml
 
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator/(const double val)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -321,6 +377,7 @@ namespace nml
 		tidx = 0;
 		tlen = 0;
 		nflag = false;
+		cflag = true;
 
 		// Initialize the memories
 		ddata = nullptr;
@@ -690,6 +747,13 @@ namespace nml
 
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator+(const ndarray<var, 1>& mat)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -717,6 +781,13 @@ namespace nml
 
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator+(const double val)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -740,6 +811,13 @@ namespace nml
 
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator-(const ndarray<var, 1>& mat)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -767,6 +845,13 @@ namespace nml
 
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator-(const double val)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -790,6 +875,13 @@ namespace nml
 
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator*(const ndarray<var, 1>& mat)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -817,6 +909,13 @@ namespace nml
 
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator*(const double val)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -840,6 +939,13 @@ namespace nml
 
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator/(const ndarray<var, 1>& mat)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -871,6 +977,13 @@ namespace nml
 
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator/(const double val)
 	{
+		// Check the check flag
+		if (cflag == true)
+		{
+			setArrayType();
+			cflag = false;
+		}
+
 		// Check the type flag
 		if (nflag == true)
 		{
@@ -902,6 +1015,7 @@ namespace nml
 		tidx = 0;
 		tlen = 0;
 		nflag = false;
+		cflag = true;
 
 		// Initialize the memories
 		ddata = nullptr;
