@@ -27,123 +27,156 @@ namespace nml
 		// Operators
 	public:
 		ndarray& operator=(const ndarray& obj);			// data copy operator
+		void operator=(const var& val);			// data setting operator
 		const ndarray<var, N - 1>& operator[](const int idx) const;			// sub-dimensional array access operator (read)
 		ndarray<var, N - 1>& operator[](const int idx);			// sub-dimensional array access operator (write)
 		const var& operator()(const int idx) const;			// data access operator (read)
 		var& operator()(const int idx);			// data access operator (write)
-		ndarray<double, N> operator+(const ndarray<double, N>& mat);
-		ndarray<double, N> operator+(const double val);
-		friend ndarray<double, N> operator+(const double val, ndarray<double, N>& mat)
+		ndarray<var, N> operator+(const ndarray<var, N>& mat);
+		ndarray<var, N> operator+(const double val);
+		friend ndarray<var, N> operator+(const double val, ndarray<var, N>& mat)
 		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate an addition matrix
-			for (int i = 0; i < mat.tlen; i++)
+			// Check the type flag
+			if (mat.nflag == true)
 			{
-				mat(i) = val + mat(i);
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = val + mat(i);
+				}
 			}
 
 			return mat;
 		}
-		friend ndarray<double, N>& operator+=(ndarray<double, N>& mat, const double val)
+		friend ndarray<var, N>& operator+=(ndarray<var, N>& mat, const var val)
 		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate an addition matrix
-			for (int i = 0; i < mat.tlen; i++)
+			// Check the type flag
+			if (mat.nflag == true)
 			{
-				mat(i) = mat(i) + val;
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = mat(i) + val;
+				}
 			}
 
 			return mat;
 		}
-		ndarray<double, N> operator-(const ndarray<double, N>& mat);
-		ndarray<double, N> operator-(const double val);
-		friend ndarray<double, N> operator-(const double val, ndarray<double, N>& mat)
+		ndarray<var, N> operator-(const ndarray<var, N>& mat);
+		ndarray<var, N> operator-(const double val);
+		friend ndarray<var, N> operator-(const double val, ndarray<var, N>& mat)
 		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate an addition matrix
-			for (int i = 0; i < mat.tlen; i++)
+			// Check the type flag
+			if (mat.nflag == true)
 			{
-				mat(i) = val - mat(i);
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = val - mat(i);
+				}
 			}
 
 			return mat;
 		}
-		friend ndarray<double, N>& operator-=(ndarray<double, N>& mat, const double val)
+		friend ndarray<var, N>& operator-=(ndarray<var, N>& mat, const double val)
 		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate an addition matrix
-			for (int i = 0; i < mat.tlen; i++)
+			// Check the type flag
+			if (mat.nflag == true)
 			{
-				mat(i) = mat(i) - val;
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = mat(i) - val;
+				}
 			}
 
 			return mat;
 		}
-		ndarray<double, N> operator*(const ndarray<double, N>& mat);
-		ndarray<double, N> operator*(const double val);
-		friend ndarray<double, N> operator*(const double val, ndarray<double, N>& mat)
+		ndarray<var, N> operator*(const ndarray<var, N>& mat);
+		ndarray<var, N> operator*(const double val);
+		friend ndarray<var, N> operator*(const double val, ndarray<var, N>& mat)
 		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate an addition matrix
-			for (int i = 0; i < mat.tlen; i++)
+			// Check the type flag
+			if (mat.nflag == true)
 			{
-				mat(i) = val * mat(i);
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = val * mat(i);
+				}
 			}
 
 			return mat;
 		}
-		friend ndarray<double, N>& operator*=(ndarray<double, N>& mat, const double val)
+		friend ndarray<var, N>& operator*=(ndarray<var, N>& mat, const double val)
 		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate an addition matrix
-			for (int i = 0; i < mat.tlen; i++)
+			// Check the type flag
+			if (mat.nflag == true)
 			{
-				mat(i) = mat(i) * val;
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = mat(i) * val;
+				}
 			}
 
 			return mat;
 		}
-		ndarray<double, N> operator/(const ndarray<double, N>& mat);
-		ndarray<double, N> operator/(const double val);
-		friend ndarray<double, N> operator/(const double val, ndarray<double, N>& mat)
+		ndarray<var, N> operator/(const ndarray<var, N>& mat);
+		ndarray<var, N> operator/(const double val);
+		friend ndarray<var, N> operator/(const double val, ndarray<var, N>& mat)
 		{
-			// Check a status
-			assert(mat.empty() == false);
-			for (int i = 0; i < mat.tlen; i++)
+			// Check the type flag
+			if (mat.nflag == true)
 			{
-				assert(mat(i) != 0.0);
-			}
+				// Check a status
+				assert(mat.empty() == false);
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					assert(mat(i) != 0.0);
+				}
 
-			// Calculate an addition matrix
-			for (int i = 0; i < mat.tlen; i++)
-			{
-				mat(i) = val / mat(i);
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = val / mat(i);
+				}
 			}
 
 			return mat;
 		}
-		friend ndarray<double, N>& operator/=(ndarray<double, N>& mat, const double val)
+		friend ndarray<var, N>& operator/=(ndarray<var, N>& mat, const double val)
 		{
-			// Check a status
-			assert(mat.empty() == false);
-			assert(val != 0.0);
-
-			// Calculate an addition matrix
-			for (int i = 0; i < mat.length(); i++)
+			// Check the type flag
+			if (mat.nflag == true)
 			{
-				mat(i) = mat(i) / val;
+				// Check a status
+				assert(mat.empty() == false);
+				assert(val != 0.0);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.length(); i++)
+				{
+					mat(i) = mat(i) / val;
+				}
 			}
 
 			return mat;
@@ -168,6 +201,7 @@ namespace nml
 		int tidx;			// total index (now unused variable)
 		int tlen;			// total length
 		var* tdata;			// total data
+		bool nflag;			// number type flag
 
 		// Functions
 	protected:
@@ -175,6 +209,10 @@ namespace nml
 		virtual inline void copyObject(const ndarray& obj);			// Copy the object
 		virtual inline void clearObject();			// Clear the object
 		void widthStep();			// Calculate a width step
+
+		// Functions
+	private:
+		void setArrayType();
 
 	};
 
@@ -190,7 +228,7 @@ namespace nml
 		inline void create(const dim& di);			// Create an array
 		inline void create(const dim& di, const var& val);			// Create an array
 		void release();			// Release an array
-		void set(const var val);			// Set a value
+		void set(const var& val);			// Set a value
 		inline const int length() const;			// Get a total length
 		var* ptr() const;			// Get a data pointer
 		bool empty() const;			// Check the array
@@ -202,10 +240,160 @@ namespace nml
 		// Operators
 	public:
 		ndarray& operator=(const ndarray& obj);			// data copy operator
+		void operator=(const var& val);			// data setting operator
 		const var& operator[](const int idx) const;			// data access operator (read)
 		var& operator[](const int idx);			// data access operator (write)
 		const var& operator()(const int idx) const;			// data access operator (read)
 		var& operator()(const int idx);			// data access operator (write)
+		ndarray<var, 1> operator+(const ndarray<var, 1>& mat);
+		ndarray<var, 1> operator+(const double val);
+		friend ndarray<var, 1> operator+(const double val, ndarray<var, 1>& mat)
+		{
+			// Check the type flag
+			if (mat.nflag == true)
+			{
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = val + mat(i);
+				}
+			}
+
+			return mat;
+		}
+		friend ndarray<var, 1>& operator+=(ndarray<var, 1>& mat, const var val)
+		{
+			// Check the type flag
+			if (mat.nflag == true)
+			{
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = mat(i) + val;
+				}
+			}
+
+			return mat;
+		}
+		ndarray<var, 1> operator-(const ndarray<var, 1>& mat);
+		ndarray<var, 1> operator-(const double val);
+		friend ndarray<var, 1> operator-(const double val, ndarray<var, 1>& mat)
+		{
+			// Check the type flag
+			if (mat.nflag == true)
+			{
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = val - mat(i);
+				}
+			}
+
+			return mat;
+		}
+		friend ndarray<var, 1>& operator-=(ndarray<var, 1>& mat, const double val)
+		{
+			// Check the type flag
+			if (mat.nflag == true)
+			{
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = mat(i) - val;
+				}
+			}
+
+			return mat;
+		}
+		ndarray<var, 1> operator*(const ndarray<var, 1>& mat);
+		ndarray<var, 1> operator*(const double val);
+		friend ndarray<var, 1> operator*(const double val, ndarray<var, 1>& mat)
+		{
+			// Check the type flag
+			if (mat.nflag == true)
+			{
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = val * mat(i);
+				}
+			}
+
+			return mat;
+		}
+		friend ndarray<var, 1>& operator*=(ndarray<var, 1>& mat, const double val)
+		{
+			// Check the type flag
+			if (mat.nflag == true)
+			{
+				// Check a status
+				assert(mat.empty() == false);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = mat(i) * val;
+				}
+			}
+
+			return mat;
+		}
+		ndarray<var, 1> operator/(const ndarray<var, 1>& mat);
+		ndarray<var, 1> operator/(const double val);
+		friend ndarray<var, 1> operator/(const double val, ndarray<var, 1>& mat)
+		{
+			// Check the type flag
+			if (mat.nflag == true)
+			{
+				// Check a status
+				assert(mat.empty() == false);
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					assert(mat(i) != 0.0);
+				}
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.tlen; i++)
+				{
+					mat(i) = val / mat(i);
+				}
+			}
+
+			return mat;
+		}
+		friend ndarray<var, 1>& operator/=(ndarray<var, 1>& mat, const double val)
+		{
+			// Check the type flag
+			if (mat.nflag == true)
+			{
+				// Check a status
+				assert(mat.empty() == false);
+				assert(val != 0.0);
+
+				// Calculate an addition matrix
+				for (int i = 0; i < mat.length(); i++)
+				{
+					mat(i) = mat(i) / val;
+				}
+			}
+
+			return mat;
+		}
 
 		// Constructors & Destructor
 	public:
@@ -225,6 +413,7 @@ namespace nml
 		int tidx;			// total index
 		int tlen;			// total length
 		var* tdata;			// total data
+		bool nflag;			// number type flag
 
 		// Functions
 	protected:
@@ -232,6 +421,10 @@ namespace nml
 		virtual inline void copyObject(const ndarray& obj);			// Copy the object
 		virtual inline void clearObject();			// Clear the object
 		void widthStep();			// Calculate a width step
+
+		// Functions
+	private:
+		void setArrayType();
 
 	};
 }

@@ -5,12 +5,18 @@ namespace nml
 {
 	algmat::algmat() : rows(sz.d0), cols(sz.d1)
 	{
+		// Set the number type flag
+		nflag = true;
+
 		// Set size information
 		sz.set(0, 0);
 	}
 
 	algmat::algmat(const msize& sz) : rows(this->sz.d0), cols(this->sz.d1)
 	{
+		// Set the number type flag
+		nflag = true;
+
 		// Set dimension information
 		this->sz = sz;
 		dim dm(2, sz.d0, sz.d1);
@@ -21,6 +27,9 @@ namespace nml
 
 	algmat::algmat(const msize& sz, const double val) : rows(this->sz.d0), cols(this->sz.d1)
 	{
+		// Set the number type flag
+		nflag = true;
+
 		// Set dimension information
 		this->sz = sz;
 		dim dm(2, sz.d0, sz.d1);
@@ -34,12 +43,18 @@ namespace nml
 
 	algmat::algmat(const ndarray<double, 2>& obj) : rows(sz.d0), cols(sz.d1)
 	{
+		// Set the number type flag
+		nflag = true;
+
 		// Copy the object
 		copyObject(obj);
 	}
 
 	algmat::algmat(const ndmatrix<2>& obj) : rows(sz.d0), cols(sz.d1)
 	{
+		// Set the number type flag
+		nflag = true;
+
 		// Copy the object
 		copyObject(obj);
 	}
@@ -61,6 +76,12 @@ namespace nml
 		copyObject(obj);
 
 		return *this;
+	}
+
+	void algmat::operator=(const double& val)
+	{
+		// Set the array
+		set(val);
 	}
 
 	const double& algmat::operator()(const int idx) const

@@ -56,6 +56,12 @@ namespace nml
 		return *this;
 	}
 
+	template<typename var, const unsigned int N> void ndarray<var, N>::operator=(const var& val)
+	{
+		// Set the array
+		set(val);
+	}
+
 	template<typename var, const unsigned int N> const ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx) const
 	{
 		// Check an address
@@ -101,145 +107,209 @@ namespace nml
 		return ddata[idx];
 	}
 
-	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator+(const ndarray<double, N>& mat)
+	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator+(const ndarray<var, N>& mat)
 	{
-		// Check a status
-		assert(empty() == false && mat.empty() == false);
-		for (int i = 0; i < _dm.N; i++)
+		// Check the type flag
+		if (nflag == true)
 		{
-			assert(_dm[i] == mat.dm[i]);
-		}
+			// Check a status
+			assert(empty() == false && mat.empty() == false);
+			for (int i = 0; i < _dm.N; i++)
+			{
+				assert(_dm[i] == mat.dm[i]);
+			}
 
-		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
-		for (int i = 0; i < mat.tlen; i++)
+			// Calculate an addition matrix
+			ndarray<double, N> result(_dm);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				result.ddata[i] = ddata[i] + mat.ddata[i];
+			}
+
+			return result;
+		}
+		else
 		{
-			result.ddata[i] = ddata[i] + mat.ddata[i];
+			return *this;
 		}
-
-		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator+(const double val)
+	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator+(const double val)
 	{
-		// Check a status
-		assert(empty() == false);
-
-		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
-		for (int i = 0; i < tlen; i++)
+		// Check the type flag
+		if (nflag == true)
 		{
-			result.ddata[i] = ddata[i] + val;
-		}
+			// Check a status
+			assert(empty() == false);
 
-		return result;
+			// Calculate an addition matrix
+			ndarray<double, N> result(_dm);
+			for (int i = 0; i < tlen; i++)
+			{
+				result.ddata[i] = ddata[i] + val;
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator-(const ndarray<double, N>& mat)
+	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator-(const ndarray<var, N>& mat)
 	{
-		// Check a status
-		assert(empty() == false && mat.empty() == false);
-		for (int i = 0; i < _dm.N; i++)
+		// Check the type flag
+		if (nflag == true)
 		{
-			assert(_dm[i] == mat.dm[i]);
-		}
+			// Check a status
+			assert(empty() == false && mat.empty() == false);
+			for (int i = 0; i < _dm.N; i++)
+			{
+				assert(_dm[i] == mat.dm[i]);
+			}
 
-		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
-		for (int i = 0; i < mat.tlen; i++)
+			// Calculate a subtraction matrix
+			ndarray<double, N> result(_dm);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				result.ddata[i] = ddata[i] - mat.ddata[i];
+			}
+
+			return result;
+		}
+		else
 		{
-			result.ddata[i] = ddata[i] - mat.ddata[i];
+			return *this;
 		}
-
-		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator-(const double val)
+	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator-(const double val)
 	{
-		// Check a status
-		assert(empty() == false);
-
-		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
-		for (int i = 0; i < tlen; i++)
+		// Check the type flag
+		if (nflag == true)
 		{
-			result.ddata[i] = ddata[i] - val;
-		}
+			// Check a status
+			assert(empty() == false);
 
-		return result;
+			// Calculate a subtraction matrix
+			ndarray<double, N> result(_dm);
+			for (int i = 0; i < tlen; i++)
+			{
+				result.ddata[i] = ddata[i] - val;
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator*(const ndarray<double, N>& mat)
+	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator*(const ndarray<var, N>& mat)
 	{
-		// Check a status
-		assert(empty() == false && mat.empty() == false);
-		for (int i = 0; i < _dm.N; i++)
+		// Check the type flag
+		if (nflag == true)
 		{
-			assert(_dm[i] == mat.dm[i]);
-		}
+			// Check a status
+			assert(empty() == false && mat.empty() == false);
+			for (int i = 0; i < _dm.N; i++)
+			{
+				assert(_dm[i] == mat.dm[i]);
+			}
 
-		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
-		for (int i = 0; i < mat.tlen; i++)
+			// Calculate a multiplication matrix
+			ndarray<double, N> result(_dm);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				result.ddata[i] = ddata[i] * mat.ddata[i];
+			}
+
+			return result;
+		}
+		else
 		{
-			result.ddata[i] = ddata[i] * mat.ddata[i];
+			return *this;
 		}
-
-		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator*(const double val)
+	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator*(const double val)
 	{
-		// Check a status
-		assert(empty() == false);
-
-		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
-		for (int i = 0; i < tlen; i++)
+		// Check the type flag
+		if (nflag == true)
 		{
-			result.ddata[i] = ddata[i] * val;
-		}
+			// Check a status
+			assert(empty() == false);
 
-		return result;
+			// Calculate a multiplication matrix
+			ndarray<double, N> result(_dm);
+			for (int i = 0; i < tlen; i++)
+			{
+				result.ddata[i] = ddata[i] * val;
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator/(const ndarray<double, N>& mat)
+	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator/(const ndarray<var, N>& mat)
 	{
-		// Check a status
-		assert(empty() == false && mat.empty() == false);
-		for (int i = 0; i < _dm.N; i++)
+		// Check the type flag
+		if (nflag == true)
 		{
-			assert(_dm[i] == mat.dm[i]);
-		}
-		for (int i = 0; i < mat.tlen; i++)
-		{
-			assert(mat(i) != 0.0);
-		}
+			// Check a status
+			assert(empty() == false && mat.empty() == false);
+			for (int i = 0; i < _dm.N; i++)
+			{
+				assert(_dm[i] == mat.dm[i]);
+			}
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				assert(mat(i) != 0.0);
+			}
 
-		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
-		for (int i = 0; i < mat.tlen; i++)
-		{
-			result.ddata[i] = ddata[i] / mat.ddata[i];
-		}
+			// Calculate a division matrix
+			ndarray<double, N> result(_dm);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				result.ddata[i] = ddata[i] / mat.ddata[i];
+			}
 
-		return result;
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator/(const double val)
+	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator/(const double val)
 	{
-		// Check a status
-		assert(empty() == false);
-		assert(val != 0.0);
-
-		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
-		for (int i = 0; i < tlen; i++)
+		// Check the type flag
+		if (nflag == true)
 		{
-			result.ddata[i] = ddata[i] / val;
-		}
+			// Check a status
+			assert(empty() == false);
+			assert(val != 0.0);
 
-		return result;
+			// Calculate a division matrix
+			ndarray<double, N> result(_dm);
+			for (int i = 0; i < tlen; i++)
+			{
+				result.ddata[i] = ddata[i] / val;
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
 	}
 
 	template<typename var, const unsigned int N> inline void ndarray<var, N>::setObject()
@@ -250,6 +320,7 @@ namespace nml
 		step = 1;
 		tidx = 0;
 		tlen = 0;
+		nflag = false;
 
 		// Initialize the memories
 		ddata = nullptr;
@@ -311,6 +382,7 @@ namespace nml
 			step = 1;
 			tidx = 0;
 			tlen = 0;
+			nflag = false;
 
 			// Initialize the memories
 			ddata = nullptr;
@@ -504,6 +576,23 @@ namespace nml
 		this->tidx = tidx;
 	}
 
+	template<typename var, const unsigned int N> void ndarray<var, N>::setArrayType()
+	{
+		// Check an array type
+		string varName = typeid(tdata[0]).name();
+		if (varName == "unsigned char" || varName == "char" ||
+			varName == "unsigned short" || varName == "short" ||
+			varName == "int" || varName == "unsigned int" ||
+			varName == "float" || varName == "double")
+		{
+			nflag = true;
+		}
+		else
+		{
+			nflag = false;
+		}
+	}
+
 	template<typename var> ndarray<var, 1>::ndarray() : dm(_dm)
 	{
 		// Set an object
@@ -557,6 +646,12 @@ namespace nml
 		return *this;
 	}
 
+	template<typename var> void ndarray<var, 1>::operator=(const var& val)
+	{
+		// Set the array
+		set(val);
+	}
+
 	template<typename var> const var& ndarray<var, 1>::operator[](const int idx) const
 	{
 		// Check the index
@@ -593,6 +688,211 @@ namespace nml
 		return ddata[idx];
 	}
 
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator+(const ndarray<var, 1>& mat)
+	{
+		// Check the type flag
+		if (nflag == true)
+		{
+			// Check a status
+			assert(empty() == false && mat.empty() == false);
+			for (int i = 0; i < _dm.N; i++)
+			{
+				assert(_dm[i] == mat.dm[i]);
+			}
+
+			// Calculate an addition matrix
+			ndarray<double, 1> result(_dm);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				result.ddata[i] = ddata[i] + mat.ddata[i];
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator+(const double val)
+	{
+		// Check the type flag
+		if (nflag == true)
+		{
+			// Check a status
+			assert(empty() == false);
+
+			// Calculate an addition matrix
+			ndarray<double, 1> result(_dm);
+			for (int i = 0; i < tlen; i++)
+			{
+				result.ddata[i] = ddata[i] + val;
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator-(const ndarray<var, 1>& mat)
+	{
+		// Check the type flag
+		if (nflag == true)
+		{
+			// Check a status
+			assert(empty() == false && mat.empty() == false);
+			for (int i = 0; i < _dm.N; i++)
+			{
+				assert(_dm[i] == mat.dm[i]);
+			}
+
+			// Calculate a subtraction matrix
+			ndarray<double, 1> result(_dm);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				result.ddata[i] = ddata[i] - mat.ddata[i];
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator-(const double val)
+	{
+		// Check the type flag
+		if (nflag == true)
+		{
+			// Check a status
+			assert(empty() == false);
+
+			// Calculate a subtraction matrix
+			ndarray<double, 1> result(_dm);
+			for (int i = 0; i < tlen; i++)
+			{
+				result.ddata[i] = ddata[i] - val;
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator*(const ndarray<var, 1>& mat)
+	{
+		// Check the type flag
+		if (nflag == true)
+		{
+			// Check a status
+			assert(empty() == false && mat.empty() == false);
+			for (int i = 0; i < _dm.N; i++)
+			{
+				assert(_dm[i] == mat.dm[i]);
+			}
+
+			// Calculate a multiplication matrix
+			ndarray<double, 1> result(_dm);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				result.ddata[i] = ddata[i] * mat.ddata[i];
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator*(const double val)
+	{
+		// Check the type flag
+		if (nflag == true)
+		{
+			// Check a status
+			assert(empty() == false);
+
+			// Calculate a multiplication matrix
+			ndarray<double, 1> result(_dm);
+			for (int i = 0; i < tlen; i++)
+			{
+				result.ddata[i] = ddata[i] * val;
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator/(const ndarray<var, 1>& mat)
+	{
+		// Check the type flag
+		if (nflag == true)
+		{
+			// Check a status
+			assert(empty() == false && mat.empty() == false);
+			for (int i = 0; i < _dm.N; i++)
+			{
+				assert(_dm[i] == mat.dm[i]);
+			}
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				assert(mat(i) != 0.0);
+			}
+
+			// Calculate a division matrix
+			ndarray<double, 1> result(_dm);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				result.ddata[i] = ddata[i] / mat.ddata[i];
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator/(const double val)
+	{
+		// Check the type flag
+		if (nflag == true)
+		{
+			// Check a status
+			assert(empty() == false);
+			assert(val != 0.0);
+
+			// Calculate an addition matrix
+			ndarray<var, 1> result(_dm);
+			for (int i = 0; i < tlen; i++)
+			{
+				result.ddata[i] = ddata[i] / val;
+			}
+
+			return result;
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
 	template<typename var> inline void ndarray<var, 1>::setObject()
 	{
 		// Initialize the parameters
@@ -601,6 +901,7 @@ namespace nml
 		step = 1;
 		tidx = 0;
 		tlen = 0;
+		nflag = false;
 
 		// Initialize the memories
 		ddata = nullptr;
@@ -662,6 +963,7 @@ namespace nml
 			step = 1;
 			tidx = 0;
 			tlen = 0;
+			nflag = false;
 
 			// Initialize the memories
 			ddata = nullptr;
@@ -708,7 +1010,7 @@ namespace nml
 		clearObject();
 	}
 
-	template<typename var> void ndarray<var, 1>::set(const var val)
+	template<typename var> void ndarray<var, 1>::set(const var& val)
 	{
 		// Check the dimension information
 		assert(_dm.d.size > 0);
@@ -815,5 +1117,22 @@ namespace nml
 
 		// Set a total index
 		this->tidx = tidx;
+	}
+
+	template<typename var> void ndarray<var, 1>::setArrayType()
+	{
+		// Check an array type
+		string varName = typeid(tdata[0]).name();
+		if (varName == "unsigned char" || varName == "char" ||
+			varName == "unsigned short" || varName == "short" ||
+			varName == "int" || varName == "unsigned int" ||
+			varName == "float" || varName == "double")
+		{
+			nflag = true;
+		}
+		else
+		{
+			nflag = false;
+		}
 	}
 }

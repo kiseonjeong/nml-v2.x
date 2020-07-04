@@ -12,10 +12,7 @@ void test_spline();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	ndmatrix<3> t0(dim(3, 3, 4, 4), 0);
-	t0[0] += 10;
-	t0.cout();
-	test_matrix();
+	test_decomposition();
 
 	return 0;
 }
@@ -28,11 +25,11 @@ void test_matrix()
 	t = clock();
 	for (int i = 0; i < 100000; i++)
 	{
-// 		for (int j = 0; j < m0.length(); j++)
-// 		{
+		for (int j = 0; j < m0.length(); j++)
+		{
 // 			m0(0, 0) = 3.14;
-// 			m0[0][0] = 3.14;
-// 		}
+//			m0[0][0] = 3.14;
+		}
 		algmat m2(m0);
 	}
 	t = clock() - t;
