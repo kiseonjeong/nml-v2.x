@@ -1,30 +1,30 @@
 namespace nml
 {
-	template<typename var, const unsigned int N> ndarray<var, N>::ndarray() : dm(_dm)
+	template<typename var> ndarray<var, 1>::ndarray() : dm(_dm)
 	{
 		// Set an object
 		setObject();
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>::ndarray(const dim& di) : dm(_dm)
+	template<typename var> ndarray<var, 1>::ndarray(const dim& di) : dm(_dm)
 	{
 		// Set an object
 		setObject();
 
 		// Check a dimension value
-		assert(di.N == N);
+		assert(di.N == 1);
 
 		// Create an array
 		create(di);
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>::ndarray(const dim& di, const var& val) : dm(_dm)
+	template<typename var> ndarray<var, 1>::ndarray(const dim& di, const var& val) : dm(_dm)
 	{
 		// Set an object
 		setObject();
 
 		// Check a dimension value
-		assert(di.N == N);
+		assert(di.N == 1);
 
 		// Create an array
 		create(di);
@@ -33,7 +33,7 @@ namespace nml
 		set(val);
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>::ndarray(const ndarray<var, N>& obj) : dm(_dm)
+	template<typename var> ndarray<var, 1>::ndarray(const ndarray<var, 1>& obj) : dm(_dm)
 	{
 		// Set an object
 		setObject();
@@ -42,13 +42,13 @@ namespace nml
 		*this = obj;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>::~ndarray()
+	template<typename var> ndarray<var, 1>::~ndarray()
 	{
 		// Clear the object
 		clearObject();
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator=(const ndarray<var, N>& obj)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator=(const ndarray<var, 1>& obj)
 	{
 		// Copy the object
 		copyObject(obj);
@@ -56,40 +56,31 @@ namespace nml
 		return *this;
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::operator=(const var& val)
+	template<typename var> void ndarray<var, 1>::operator=(const var& val)
 	{
 		// Set the array
 		set(val);
 	}
 
-	template<typename var, const unsigned int N> const ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx) const
+	template<typename var> const var& ndarray<var, 1>::operator[](const int idx) const
 	{
-		// Check an address
-		int addr = idx * step;
-		assert(idx >= 0 && idx < dlen);
+		// Check the index
+		assert(idx >= 0 && idx < tlen);
 
-		// Set a 1 dimensional index
-		ndarray<var, N - 1>& _subm = const_cast<ndarray<var, N - 1>&>(subm);
-		_subm.subdata(&ddata[addr], idx);
-
-		// Get a sub-dimensional array
-		return subm;
+		// Get a value
+		return ddata[idx];
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx)
+	template<typename var> var& ndarray<var, 1>::operator[](const int idx)
 	{
-		// Check an address
-		int addr = idx * step;
-		assert(idx >= 0 && idx < dlen);
+		// Check the index
+		assert(idx >= 0 && idx < tlen);
 
-		// Set a 1 dimensional index
-		subm.subdata(&ddata[addr], idx);
-
-		// Get a sub-dimensional array
-		return subm;
+		// Get a value
+		return ddata[idx];
 	}
 
-	template<typename var, const unsigned int N> const var& ndarray<var, N>::operator()(const int idx) const
+	template<typename var> const var& ndarray<var, 1>::operator()(const int idx) const
 	{
 		// Check an index
 		assert(idx >= 0 && idx < tlen);
@@ -98,7 +89,7 @@ namespace nml
 		return ddata[idx];
 	}
 
-	template<typename var, const unsigned int N> var& ndarray<var, N>::operator()(const int idx)
+	template<typename var> var& ndarray<var, 1>::operator()(const int idx)
 	{
 		// Check an index
 		assert(idx >= 0 && idx < tlen);
@@ -107,7 +98,7 @@ namespace nml
 		return ddata[idx];
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator+(const ndarray<var, N>& mat) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator+(const ndarray<var, 1>& mat) const
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -125,11 +116,11 @@ namespace nml
 		}
 		else
 		{
-			return ndarray<var, N>();
+			return ndarray<var, 1>();
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator+(const double val) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator+(const double val) const
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -143,15 +134,15 @@ namespace nml
 		if (nflag == true)
 		{
 			// Calculate an addition matrix
-			return add(mat);
+			return add(val);
 		}
 		else
 		{
-			return ndarray<var, N>();
+			return ndarray<var, 1>();
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator+=(const ndarray<var, N>& mat)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator+=(const ndarray<var, 1>& mat)
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -175,7 +166,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator+=(const double val)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator+=(const double val)
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -199,7 +190,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator-(const ndarray<var, N>& mat) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator-(const ndarray<var, 1>& mat) const
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -217,11 +208,11 @@ namespace nml
 		}
 		else
 		{
-			return ndarray<var, N>();
+			return ndarray<var, 1>();
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator-(const double val) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator-(const double val) const
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -239,11 +230,11 @@ namespace nml
 		}
 		else
 		{
-			return ndarray<var, N>();
+			return ndarray<var, 1>();
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator-=(const ndarray<var, N>& mat)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator-=(const ndarray<var, 1>& mat)
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -267,7 +258,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator-=(const double val)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator-=(const double val)
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -291,7 +282,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator*(const ndarray<var, N>& mat) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator*(const ndarray<var, 1>& mat) const
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -309,11 +300,11 @@ namespace nml
 		}
 		else
 		{
-			return ndarray<var, N>();
+			return ndarray<var, 1>();
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator*(const double val) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator*(const double val) const
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -331,11 +322,11 @@ namespace nml
 		}
 		else
 		{
-			return ndarray<var, N>();
+			return ndarray<var, 1>();
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator*=(const ndarray<var, N>& mat)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator*=(const ndarray<var, 1>& mat)
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -359,7 +350,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator*=(const double val)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator*=(const double val)
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -383,7 +374,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator/(const ndarray<var, N>& mat) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator/(const ndarray<var, 1>& mat) const
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -401,11 +392,11 @@ namespace nml
 		}
 		else
 		{
-			return ndarray<var, N>();
+			return ndarray<var, 1>();
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator/(const double val) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator/(const double val) const
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -423,11 +414,11 @@ namespace nml
 		}
 		else
 		{
-			return ndarray<var, N>();
+			return ndarray<var, 1>();
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator/=(const ndarray<var, N>& mat)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator/=(const ndarray<var, 1>& mat)
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -451,7 +442,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator/=(const double val)
+	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator/=(const double val)
 	{
 		// Check the check flag
 		bool& _cflag = const_cast<bool&>(cflag);
@@ -475,7 +466,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> inline void ndarray<var, N>::setObject()
+	template<typename var> inline void ndarray<var, 1>::setObject()
 	{
 		// Initialize the parameters
 		didx = 0;
@@ -491,7 +482,7 @@ namespace nml
 		tdata = nullptr;
 	}
 
-	template<typename var, const unsigned int N> inline void ndarray<var, N>::copyObject(const ndarray<var, N>& obj)
+	template<typename var> inline void ndarray<var, 1>::copyObject(const ndarray<var, 1>& obj)
 	{
 		// Check a creation flag
 		bool creation = false;
@@ -529,9 +520,9 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> inline void ndarray<var, N>::clearObject()
+	template<typename var> inline void ndarray<var, 1>::clearObject()
 	{
-		// Check a dimension status
+		// Clear the data memory
 		if (didx == 0)
 		{
 			// Clear the data memory
@@ -555,7 +546,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> inline void ndarray<var, N>::create(const dim& di)
+	template<typename var> inline void ndarray<var, 1>::create(const dim& di)
 	{
 		// Check the dimension information
 		assert(di.d.size > 0);
@@ -570,30 +561,15 @@ namespace nml
 			ddata = nullptr;
 		}
 		ddata = new var[di.length()];
-		didx = _dm.N - N;
+		didx = 0;
 		dlen = _dm[didx];
 		step = 1;
-		for (int i = didx + 1; i < _dm.N; i++)
-		{
-			step *= _dm[i];
-		}
 		tdata = ddata;
 		tidx = 0;
 		tlen = dlen * step;
-
-		// Set sub-dimension information
-		dim sdi;
-		sdi.create(N - 1);
-		for (int i = didx + 1, j = 0; i < _dm.N; i++, j++)
-		{
-			sdi.set(j, _dm[i]);
-		}
-
-		// Set sub dimensional data
-		subm.subdim(sdi, tdata, didx);
 	}
 
-	template<typename var, const unsigned int N> inline void ndarray<var, N>::create(const dim& di, const var& val)
+	template<typename var> inline void ndarray<var, 1>::create(const dim& di, const var& val)
 	{
 		// Create an array
 		create(di);
@@ -602,13 +578,13 @@ namespace nml
 		set(val);
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::release()
+	template<typename var> void ndarray<var, 1>::release()
 	{
 		// Clear the object
 		clearObject();
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::set(const var& val)
+	template<typename var> void ndarray<var, 1>::set(const var& val)
 	{
 		// Check the dimension information
 		assert(_dm.d.size > 0);
@@ -620,22 +596,22 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> inline const int ndarray<var, N>::length() const
+	template<typename var> inline const int ndarray<var, 1>::length() const
 	{
 		// Get a total length
 		return tlen;
 	}
 
-	template<typename var, const unsigned int N> var* ndarray<var, N>::ptr() const
+	template<typename var> var* ndarray<var, 1>::ptr() const
 	{
-		// Check a dimension information
-		assert(_dm.d.size > 0);
+		// Check the dimension information
+		assert(_dm.d.size() > 0);
 
 		// Get a data pointer
 		return ddata;
 	}
 
-	template<typename var, const unsigned int N> bool ndarray<var, N>::empty() const
+	template<typename var> bool ndarray<var, 1>::empty() const
 	{
 		// Check the data
 		if (ddata == nullptr)
@@ -648,7 +624,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::cout() const
+	template<typename var> void ndarray<var, 1>::cout() const
 	{
 		// Console out begin of array
 		for (int i = 0; i < didx; i++)
@@ -673,7 +649,7 @@ namespace nml
 		std::cout << ")" << endl << endl;
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::_cout(const int nspace) const
+	template<typename var> void ndarray<var, 1>::_cout(const int nspace) const
 	{
 		// Console out the array
 		for (int i = 0; i < _dm[0]; i++)
@@ -682,7 +658,7 @@ namespace nml
 			{
 				std::cout << "[";
 			}
-			(*this)[i]._cout(nspace);
+			std::cout << ddata[i];
 			if (i == _dm[0] - 1)
 			{
 				std::cout << "]";
@@ -690,19 +666,11 @@ namespace nml
 			else
 			{
 				std::cout << ", ";
-				for (int j = 0; j < N - 1; j++)
-				{
-					std::cout << endl;
-				}
-				for (int j = 0; j <= didx + nspace; j++)
-				{
-					std::cout << " ";
-				}
 			}
 		}
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::subdim(const dim& di, var* tdata, const int didx)
+	template<typename var> void ndarray<var, 1>::subdim(const dim& di, var* tdata, const int didx)
 	{
 		// Copy the dimension information
 		_dm = di;
@@ -711,27 +679,12 @@ namespace nml
 		this->didx = didx + 1;
 		dlen = _dm[0];
 		step = 1;
-		for (int i = 1; i < _dm.N; i++)
-		{
-			step *= _dm[i];
-		}
 		this->tdata = tdata;
 		tidx = 0;
 		tlen = dlen * step;
-
-		// Set sub-dimension information
-		dim sdi;
-		sdi.create(N - 1);
-		for (int i = 1, j = 0; i < _dm.N; i++, j++)
-		{
-			sdi.set(j, _dm[i]);
-		}
-
-		// Set sub dimensional data
-		subm.subdim(sdi, tdata, this->didx);
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::subdata(var* ddata, const int tidx)
+	template<typename var> void ndarray<var, 1>::subdata(var* ddata, const int tidx)
 	{
 		// Set the dimensional data
 		this->ddata = ddata;
@@ -740,7 +693,7 @@ namespace nml
 		this->tidx = tidx;
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::setArrayType() const
+	template<typename var> void ndarray<var, 1>::setArrayType() const
 	{
 		// Check an array type
 		string varName = typeid(tdata[0]).name();
@@ -757,7 +710,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::calculateWidthstep(ndarray<int, 1>& nds, const dim& dm, const int d, const int cstep) const
+	template<typename var> void ndarray<var, 1>::calculateWidthstep(ndarray<int, 1>& nds, const dim& dm, const int d, const int cstep) const
 	{
 		// Calculate a next step value
 		int nstep = 1;
@@ -768,20 +721,20 @@ namespace nml
 		nds[d] = cstep;
 
 		// Check a dimension index
-		if (d < N - 1)
+		if (d < 1 - 1)
 		{
 			calculateWidthstep(nds, dm, d + 1, nstep);
 		}
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::getTransIndices(const ndarray<int, 1>& nds, const dim& dm, const dim& trd, const int d, const int cstep, int addr, std::vector<int>& indices) const
+	template<typename var> void ndarray<var, 1>::getTransIndices(const ndarray<int, 1>& nds, const dim& dm, const dim& trd, const int d, const int cstep, int addr, std::vector<int>& indices) const
 	{
 		// Calculate an index
 		int idx = addr;
 		for (int i = 0; i < dm[d]; i++)
 		{
 			idx = addr + i * cstep;
-			if (d < N - 1)
+			if (d < 1 - 1)
 			{
 				getTransIndices(nds, dm, trd, d + 1, nds[trd[d + 1]], idx, indices);
 			}
@@ -792,7 +745,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::getBroadcastIndices(const ndarray<int, 1>& nds, const dim& dm, const int d, const int s, const int cstep, int addr, std::vector<int>& indices) const
+	template<typename var> void ndarray<var, 1>::getBroadcastIndices(const ndarray<int, 1>& nds, const dim& dm, const int d, const int s, const int cstep, int addr, std::vector<int>& indices) const
 	{
 		// Calculate an index
 		int idx = addr;
@@ -806,7 +759,7 @@ namespace nml
 			{
 				idx = addr + i * cstep;
 			}
-			if (d < N - 1)
+			if (d < 1 - 1)
 			{
 				getBroadcastIndices(nds, dm, d + 1, s, nds[d + 1], idx, indices);
 			}
@@ -817,7 +770,7 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> template <const unsigned int M> ndarray<var, M> ndarray<var, N>::reshape(const dim& di) const
+	template<typename var> template <const unsigned int M> ndarray<var, M> ndarray<var, 1>::reshape(const dim& di) const
 	{
 		// Check dimension information
 		assert(di.N == M);
@@ -882,7 +835,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::transpose(const dim& trd) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::transpose(const dim& trd) const
 	{
 		// Calculate steps for N dimensions
 		ndarray<int, 1> nds(dim(1, trd.N));
@@ -904,7 +857,7 @@ namespace nml
 		getTransIndices(nds, dm, trd, 0, nds[trd[0]], 0, tri);
 
 		// Transpose a matrix
-		ndarray<var, N> result(dm);
+		ndarray<var, 1> result(dm);
 		for (int i = 0; i < tlen; i++)
 		{
 			result.ddata[i] = ddata[tri[i]];
@@ -913,7 +866,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::add(const ndarray<var, N>& mat) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::add(const ndarray<var, 1>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -943,7 +896,7 @@ namespace nml
 		}
 
 		// Check a broadcasting flag
-		ndarray<double, N> result;
+		ndarray<double, 1> result;
 		if (dcount == 1)
 		{
 			// Check a total length
@@ -1009,13 +962,13 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::add(const double val) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::add(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
 
 		// Calculate an addition matrix
-		ndarray<double, N> result(_dm);
+		ndarray<double, 1> result(_dm);
 		for (int i = 0; i < tlen; i++)
 		{
 			result.ddata[i] = ddata[i] + val;
@@ -1024,7 +977,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::sub(const ndarray<var, N>& mat) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::sub(const ndarray<var, 1>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1054,7 +1007,7 @@ namespace nml
 		}
 
 		// Check a broadcasting flag
-		ndarray<double, N> result;
+		ndarray<double, 1> result;
 		if (dcount == 1)
 		{
 			// Check a total length
@@ -1120,13 +1073,13 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::sub(const double val) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::sub(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
 
 		// Calculate a subtraction matrix
-		ndarray<double, N> result(_dm);
+		ndarray<double, 1> result(_dm);
 		for (int i = 0; i < tlen; i++)
 		{
 			result.ddata[i] = ddata[i] - val;
@@ -1135,7 +1088,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::mul(const ndarray<var, N>& mat) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::mul(const ndarray<var, 1>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1165,7 +1118,7 @@ namespace nml
 		}
 
 		// Check a broadcasting flag
-		ndarray<double, N> result;
+		ndarray<double, 1> result;
 		if (dcount == 1)
 		{
 			// Check a total length
@@ -1231,13 +1184,13 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::mul(const double val) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::mul(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
 
 		// Calculate a multiplication matrix
-		ndarray<double, N> result(_dm);
+		ndarray<double, 1> result(_dm);
 		for (int i = 0; i < tlen; i++)
 		{
 			result.ddata[i] = ddata[i] * val;
@@ -1246,7 +1199,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::div(const ndarray<var, N>& mat) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::div(const ndarray<var, 1>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1280,7 +1233,7 @@ namespace nml
 		}
 
 		// Check a broadcasting flag
-		ndarray<double, N> result(_dm);
+		ndarray<double, 1> result(_dm);
 		if (dcount == 1)
 		{
 			// Check a total length
@@ -1346,14 +1299,14 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::div(const double val) const
+	template<typename var> ndarray<var, 1> ndarray<var, 1>::div(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
 		assert(val != 0.0);
 
 		// Calculate a division matrix
-		ndarray<double, N> result(_dm);
+		ndarray<double, 1> result(_dm);
 		for (int i = 0; i < tlen; i++)
 		{
 			result.ddata[i] = ddata[i] / val;

@@ -28,7 +28,7 @@ void test_matrix()
 		for (int j = 0; j < m0.length(); j++)
 		{
 // 			m0(0, 0) = 3.14;
-//			m0[0][0] = 3.14;
+// 			m0[0][0] = 3.14;
 		}
 		algmat m2(m0);
 	}

@@ -1,10 +1,10 @@
-#ifndef NDARRAY_H
-#define NDARRAY_H
+#ifndef _1DARRAY_H
+#define _1DARRAY_H
 
 namespace nml
 {
-	// The N Dimensional Array
-	template <typename var, const unsigned int N> class ndarray
+	// The 1 Dimensional Array
+	template <typename var> class ndarray<var, 1>
 	{
 		// Variables
 	public:
@@ -18,7 +18,7 @@ namespace nml
 		void set(const var& val);			// Set a value
 		inline const int length() const;			// Get a total length
 		var* ptr() const;			// Get a data pointer
-		bool empty() const;			// Check an array
+		bool empty() const;			// Check the array
 		void cout() const;			// Console out for an array
 		void _cout(const int nspace = 0) const;			// Console out for an array
 		void subdim(const dim& di, var* tdata, const int didx);			// Set sub-dimensional array
@@ -30,13 +30,13 @@ namespace nml
 	public:
 		ndarray& operator=(const ndarray& obj);			// data copy operator
 		void operator=(const var& val);			// data setting operator
-		const ndarray<var, N - 1>& operator[](const int idx) const;			// sub-dimensional array access operator (read)
-		ndarray<var, N - 1>& operator[](const int idx);			// sub-dimensional array access operator (write)
+		const var& operator[](const int idx) const;			// data access operator (read)
+		var& operator[](const int idx);			// data access operator (write)
 		const var& operator()(const int idx) const;			// data access operator (read)
 		var& operator()(const int idx);			// data access operator (write)
-		ndarray<var, N> operator+(const ndarray<var, N>& mat) const;
-		ndarray<var, N> operator+(const double val) const;
-		friend ndarray<var, N> operator+(const double val, const ndarray<var, N>& mat)
+		ndarray operator+(const ndarray& mat) const;
+		ndarray operator+(const double val) const;
+		friend ndarray operator+(const double val, const ndarray& mat)
 		{
 			// Check the check flag
 			bool& _cflag = const_cast<bool&>(mat.cflag);
@@ -53,7 +53,7 @@ namespace nml
 				assert(mat.empty() == false);
 
 				// Calculate an addition matrix
-				ndarray<var, N> result(mat.dm);
+				ndarray<var, 1> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
 					result(i) = val + mat(i);
@@ -66,11 +66,11 @@ namespace nml
 				return mat;
 			}
 		}
-		ndarray<var, N>& operator+=(const ndarray<var, N>& mat);
-		ndarray<var, N>& operator+=(const double val);
-		ndarray<var, N> operator-(const ndarray<var, N>& mat) const;
-		ndarray<var, N> operator-(const double val) const;
-		friend ndarray<var, N> operator-(const double val, const ndarray<var, N>& mat)
+		ndarray& operator+=(const ndarray& mat);
+		ndarray& operator+=(const double val);
+		ndarray operator-(const ndarray& mat) const;
+		ndarray operator-(const double val) const;
+		friend ndarray operator-(const double val, const ndarray& mat)
 		{
 			// Check the check flag
 			bool& _cflag = const_cast<bool&>(mat.cflag);
@@ -87,7 +87,7 @@ namespace nml
 				assert(mat.empty() == false);
 
 				// Calculate a subtraction matrix
-				ndarray<var, N> result(mat.dm);
+				ndarray<var, 1> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
 					result(i) = val - mat(i);
@@ -100,11 +100,11 @@ namespace nml
 				return mat;
 			}
 		}
-		ndarray<var, N>& operator-=(const ndarray<var, N>& mat);
-		ndarray<var, N>& operator-=(const double val);
-		ndarray<var, N> operator*(const ndarray<var, N>& mat) const;
-		ndarray<var, N> operator*(const double val) const;
-		friend ndarray<var, N> operator*(const double val, const ndarray<var, N>& mat)
+		ndarray& operator-=(const ndarray& mat);
+		ndarray& operator-=(const double val);
+		ndarray operator*(const ndarray& mat) const;
+		ndarray operator*(const double val) const;
+		friend ndarray operator*(const double val, const ndarray& mat)
 		{
 			// Check the check flag
 			bool& _cflag = const_cast<bool&>(mat.cflag);
@@ -121,7 +121,7 @@ namespace nml
 				assert(mat.empty() == false);
 
 				// Calculate a multiplication matrix
-				ndarray<var, N> result(mat.dm);
+				ndarray<var, 1> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
 					result(i) = val * mat(i);
@@ -134,11 +134,11 @@ namespace nml
 				return mat;
 			}
 		}
-		ndarray<var, N>& operator*=(const ndarray<var, N>& mat);
-		ndarray<var, N>& operator*=(const double val);
-		ndarray<var, N> operator/(const ndarray<var, N>& mat) const;
-		ndarray<var, N> operator/(const double val) const;
-		friend ndarray<var, N> operator/(const double val, const ndarray<var, N>& mat)
+		ndarray& operator*=(const ndarray& mat);
+		ndarray& operator*=(const double val);
+		ndarray operator/(const ndarray& mat) const;
+		ndarray operator/(const double val) const;
+		friend ndarray operator/(const double val, const ndarray& mat)
 		{
 			// Check the check flag
 			bool& _cflag = const_cast<bool&>(mat.cflag);
@@ -159,7 +159,7 @@ namespace nml
 				}
 
 				// Calculate a division matrix
-				ndarray<var, N> result(mat.dm);
+				ndarray<var, 1> result(mat.dm);
 				for (int i = 0; i < mat.tlen; i++)
 				{
 					result(i) = val / mat(i);
@@ -172,8 +172,8 @@ namespace nml
 				return mat;
 			}
 		}
-		ndarray<var, N>& operator/=(const ndarray<var, N>& mat);
-		ndarray<var, N>& operator/=(const double val);
+		ndarray& operator/=(const ndarray& mat);
+		ndarray& operator/=(const double val);
 
 		// Constructors & Destructor
 	public:
@@ -185,13 +185,12 @@ namespace nml
 
 		// Variables
 	protected:
-		ndarray<var, N - 1> subm;			// sub-dimension array
 		dim _dm;			// dimension information
 		int didx;			// dimensional index
 		int dlen;			// dimensional length
 		var* ddata;			// dimensional data
 		int step;			// width step
-		int tidx;			// total index (now unused variable)
+		int tidx;			// total index
 		int tlen;			// total length
 		var* tdata;			// total data
 		bool nflag;			// number type flag
@@ -219,6 +218,6 @@ namespace nml
 	};
 }
 
-#include "Ndarray.hpp"
+#include "1darray.hpp"
 
 #endif
