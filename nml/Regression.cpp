@@ -88,7 +88,7 @@ namespace nml
 	void polyfit::copyObject(const object& obj)
 	{
 		// Do down casting
-		polyfit* _obj = (polyfit*)&obj;
+		const polyfit* _obj = static_cast<const polyfit*>(&obj);
 
 		// Copy the parameters
 		deg = _obj->deg;
