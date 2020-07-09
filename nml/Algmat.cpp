@@ -44,6 +44,23 @@ namespace nml
 		set(val);
 	}
 
+	algmat::algmat(const ndarray<double, 1>& obj) : rows(sz.d0), cols(sz.d1)
+	{
+		// Set the number type flag
+		nflag = true;
+		cflag = false;
+
+		// Convert an input vector as a matrix
+		algmat _obj(msize(obj.length()));
+		for (int i = 0; i < obj.length(); i++)
+		{
+			_obj(i) = obj(i);
+		}
+
+		// Copy the object
+		copyObject(_obj);
+	}
+
 	algmat::algmat(const ndarray<double, 2>& obj) : rows(sz.d0), cols(sz.d1)
 	{
 		// Set the number type flag
@@ -52,6 +69,23 @@ namespace nml
 
 		// Copy the object
 		copyObject(obj);
+	}
+
+	algmat::algmat(const ndmatrix<1>& obj) : rows(sz.d0), cols(sz.d1)
+	{
+		// Set the number type flag
+		nflag = true;
+		cflag = false;
+
+		// Convert an input vector as a matrix
+		algmat _obj(msize(obj.length()));
+		for (int i = 0; i < obj.length(); i++)
+		{
+			_obj(i) = obj(i);
+		}
+
+		// Copy the object
+		copyObject(_obj);
 	}
 
 	algmat::algmat(const ndmatrix<2>& obj) : rows(sz.d0), cols(sz.d1)
