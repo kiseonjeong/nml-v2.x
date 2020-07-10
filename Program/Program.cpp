@@ -12,7 +12,7 @@ void test_spline();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	test_matrix();
+	test_decomposition();
 
 	return 0;
 }
