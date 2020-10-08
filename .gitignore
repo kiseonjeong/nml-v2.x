@@ -11,3 +11,8 @@
 *.opensdf
 *.sdf
 *.suo
+/Debug-MDd/
+/Debug-MTd/
+/Release-MD/
+/Release-MT/
+/x64/
