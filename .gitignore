@@ -18,3 +18,5 @@
 /Release-MD/
 /Release-MT/
 /x64/
+/nml/**/
+/Program/**/
