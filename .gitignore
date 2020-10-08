@@ -11,6 +11,8 @@
 *.opensdf
 *.sdf
 *.suo
+*.user
+/.vs/
 /Debug-MDd/
 /Debug-MTd/
 /Release-MD/
