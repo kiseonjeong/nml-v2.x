@@ -298,6 +298,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Ndimension.h" />
+    <ClInclude Include="Ndimension.hpp" />
+    <ClInclude Include="nml.hpp" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
